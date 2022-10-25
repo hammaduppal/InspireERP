@@ -1,0 +1,173 @@
+﻿@using ILibrary.Production
+@model Product
+@{
+    ViewBag.Title = "Add Product";
+    Layout = "~/Views/_Shared/_AdminLayout.cshtml";
+
+    List<SelectListItem> departments     = ViewBag.ListofDepartment;
+    List<SelectListItem> CategorybyID    = ViewBag.CategorybyID;
+    List<SelectListItem> subcategory     = ViewBag.subCategorybyID;
+    List<SelectListItem> colors          = ViewBag.ListofColors;
+    List<SelectListItem> brands          = ViewBag.brands;
+    List<SelectListItem> materials       = ViewBag.material;
+    List<SelectListItem> sizes = ViewBag.sizes;
+
+
+
+}
+@using (Html.BeginForm("AddProduct", "Product", FormMethod.Post, new { @class = "form-input-group", enctype = "multipart/form-data" }))
+{
+    <!-- Floating labels -->
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Title -->
+            <div class="mb-3">
+            
+                <span class="text-muted d-block">Add Details</span>
+            </div>
+            <!-- /title -->
+            <!-- Text inputs -->
+            <div class="card">
+            
+                <div class="card-body">
+                    <div class="form-group form-group-float">
+                        <label class="form-group-float-label text-success font-weight-semibold">Product Name</label>
+                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control ", required = true, placeholder = "Enter Product Name", name = "ProductName", id = "pName" })
+                        <div class="lengthcount"></div>
+                        @*<input type="text" class="form-control" placeholder="Text input">*@
+                    </div>
+
+                    <div class="form-group form-group-float">
+                        <label class="form-group-float-label text-success font-weight-semibold">Product Cost</label>
+                        @Html.TextBoxFor(x => x.SalePrice, new { @class = "form-control", required = true, type = "number", placeholder = "Product SalePrice", name = "saleprice" })
+
+                    </div>
+
+                    <div class="form-group form-group-float">
+                        <label class="form-group-float-label text-success font-weight-semibold">Discounted Price</label>
+                        @Html.TextBoxFor(x => x.DiscountPrice, new { @class = "form-control", required = true, type = "number", placeholder = "Discounted Price", name = "DiscountedPrice" })
+                    </div>
+                    <div class="form-group form-group-float">
+                        <label class="form-group-float-label text-success font-weight-semibold">Retail Price</label>
+                        @Html.TextBoxFor(x => x.RetailPrice, new { @class = "form-control", required = true, type = "number", placeholder = "Retail Price", name = "RetailPrice" })
+                    </div>
+                    <div class="form-group form-group-float">
+                        <label class="form-group-float-label text-success font-weight-semibold">Retail Price</label>
+                        @Html.TextBoxFor(x => x.DeliveryCharges, new { @class = "form-control", required = true, type = "number", placeholder = "Delivery Charges", name = "deliveryCharges" })
+                    </div>
+                    <div class="form-group form-group-float">
+                        <label class="form-group-float-label text-success font-weight-semibold">BarCode</label>
+                        @Html.TextBoxFor(x => x.BarCode, new { @class = "form-control", required = true, type = "text", placeholder = "BarCode", name = "BarCode" })
+
+                    </div>
+
+
+                    <div class="form-group form-group-float">
+                        <label class="form-group-float-label">Product Description</label>
+                        @Html.TextAreaFor(x => x.Description, new { @class = "form-control", placeholder = "Enter Description", name = "Description" })
+
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- /text inputs -->
+
+
+
+        </div>
+
+        <div class="col-md-6">
+
+            <!-- Title -->
+            <div class="mb-3">
+                <span class="text-muted d-block">Selectable Inputs</span>
+            </div>
+            <!-- /title -->
+            <!-- Selects -->
+            <div class="card">
+               
+                 
+                <div class="card-body">
+                    <div class="form-group form-group-float">
+                        <label class="form-group-float-label text-success font-weight-semibold">Brand</label>
+                        @Html.DropDownListFor(x => x.Brand.Name, brands, "-- Select Brand --", new { @class = "form-control", required = true, type = "number", placeholder = "Brands", name = "Brands" })
+
+                    </div>
+
+                    <div class="form-group form-group-float">
+                        <label class="form-group-float-label text-success font-weight-semibold">BarCode</label>
+                        @Html.DropDownListFor(x => x.Material.Name, materials, "-- Select Material --", new { @class = "form-control", required = true, type = "number", placeholder = "BarCode", name = "BarCode" })
+                    </div>
+                    <div class="form-group form-group-float">
+                        <label class="form-group-float-label text-success font-weight-semibold">BarCode</label>
+                        @Html.DropDownListFor(x => x.Size.Name, sizes, "-- Select SIZE --", new { @class = "form-control", required = true, type = "number", placeholder = "BarCode", name = "BarCode" })
+                    </div>
+                    <div class="form-group form-group-float">
+                        <label class="form-group-float-label text-success font-weight-semibold">Select Color</label>
+                        @Html.DropDownListFor(x => x.Color.Name, colors, "-- Select Color --", new { @class = "form-control", required = true, Id = "color" })
+
+
+                    </div>
+                    <div class="form-group form-group-float">
+                        <label class="form-group-float-label text-success font-weight-semibold">Select Department</label>
+                        @Html.DropDownListFor(x => x.SubCategory.Category.Department.Name, departments, "-- Select Department --", new { @class = "form-control", required = true, Id = "department" })
+                    </div>
+                    <div class="form-group form-group-float">
+                        <label class="form-group-float-label text-success font-weight-semibold">Select Category</label>
+                        <div id="Category">
+                            @Html.DropDownListFor(x => x.SubCategory.Category.Name, CategorybyID, "-- Select Category --", new { @class = "form-control", required = true, Id = "CategorySelect" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-float">
+                        <label class="form-group-float-label text-success font-weight-semibold">Select Category</label>
+                        <div id="SubCategory">
+                            @Html.DropDownListFor(x => x.SubCategory.Name, subcategory, "-- Select Sub Category --", new { @class = "form-control", required = true, Id = "subcategory" })
+
+                        </div>
+
+                    </div>
+
+
+
+
+                    <div class="form-group">
+                        <label class="">Select Images</label>
+                        <input type="file" multiple name="images" required />
+                    </div>
+                    <div class="form-group">
+                        <input value="Submit Form" class="btn btn-success" type="submit" />
+
+                    </div>
+
+                </div>
+                </div>
+            <!-- /selects -->
+
+
+
+        </div>
+    </div>
+    <!-- /floating labels -->
+}
+
+@section myScript{
+    
+    <script type="text/javascript">
+        $('#pName').keyup(function ()
+        {
+            var name = $(this).val().length;
+            $('.lengthcount').html(name + " /250");
+        });
+        $('#department').change(function () {
+            let Id = $(this).val();
+            $.ajax({
+                url: "/Product/GetCategory/"+Id,
+                method: "GET"
+            }).done(function (result) {
+                $("#Category").html(result);
+            });
+
+        });
+    </script>
+    }

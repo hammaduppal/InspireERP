@@ -1,0 +1,19 @@
+﻿@using InspireERP.Models 
+@{ 
+    List<AddtoCartModel> cartModels = (List<AddtoCartModel>)Session[WebUtil.cartitem];
+}
+
+
+    <a href="#" class="c-btn-icon c-cart-toggler">
+        <i class="icon-handbag c-cart-icon"></i>
+        <span class="c-cart-number c-theme-bg">
+            @if (cartModels == null)
+            {
+<span>0</span> }
+else
+{
+@cartModels.Count}
+
+        </span>
+    </a>
+

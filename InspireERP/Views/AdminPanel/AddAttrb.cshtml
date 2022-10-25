@@ -1,0 +1,242 @@
+﻿
+@{
+    ViewBag.Title = "AddAttrb";
+    Layout = "~/Views/_Shared/_AdminLayOut.cshtml";
+    List<SelectListItem> department = ViewBag.department;
+    List<SelectListItem> category = ViewBag.category;
+    List<SelectListItem> countrylist = ViewBag.country;
+}
+<div class="row">
+    <div id="message"></div>
+</div>
+<div class="row">
+    <div style="" class="col-md-2 c-border c-border-2px">
+        Add Country
+        <div class="row">
+            <form action="/Person/AddCountry/">
+                <input type="text" placeholder="Enter Country Name" data-nuke="country" class="form-control" name="name" id="countryName" />
+                <input class="form-control btn btn-success" disabled id="countrySubmit" type="submit" />
+            </form>
+        </div>
+    </div>
+    <div style="height:150px; margin:10px;" class="col-md-2 c-border c-border-2px">
+
+        <div class="row">
+            Add City
+            <form action="/Person/AddCity/">
+                <select name="countrylist" id="countrylist" class="form-control">
+                    @foreach (var item in countrylist)
+                    {
+                        <option>@item.Text</option>
+                    }
+                </select>
+                <input data-nuke="city" id="cityName" name="cityName" type="text" class="form-control" placeholder="Enter City Name" />
+                <input class="form-control btn btn-success" disabled id="citySubmit" type="submit" />
+            </form>
+        </div>
+    </div>
+    <div class="col-md-2 c-border c-border-2px" style="height: 150px; margin: 10px;">
+            <div class="row">
+                Add Department
+                <form action="~/Product/AddDepartment" method="post">
+
+                    <input class="form-control" data-nuke="department" id="departmentName" type="text" name="name" />
+                    <input class="form-control btn btn-success" disabled id="deparsubmit" type="submit" />
+                </form>
+            </div>
+        </div>
+        <div class="col-md-2 c-border c-border-2px" style="height: 150px; margin: 10px;">
+            <div class="row">
+                Add Category
+                <form action="~/Product/AddCategory" method="post">
+                    <select name="department" id="department" class="form-control">
+                        @foreach (var item in department)
+                        {
+                            <option class="form-control">
+                                @item.Text
+                            </option>
+                        }
+                    </select>
+                    <input class="form-control" data-nuke="category" id="categoryName" type="text" name="name" />
+                    <input data-nuke="category" class="form-control btn btn-success" disabled id="categorySubmit" type="submit" />
+                </form>
+            </div>
+        </div>
+        <div class="col-md-2 c-border c-border-2px" style="height: 150px; margin: 10px;">
+            <div class="row">
+                <form action="~/Product/AddSubCategory" method="post">
+                    <select id="deptwo" name="departmentwo" class="form-control">
+                        <option>-- Select --</option>
+                        @foreach (var item in department)
+                        {
+                            <option data-value="@item.Value" class="form-control">
+                                @item.Text
+                            </option>
+                        }
+
+                    </select>
+                    <div id="cat2" class="">
+                        <select class="form-control">
+                            <option class="form-control">
+                                -- Select --
+                            </option>
+                        </select>
+                    </div>
+                    <input class="form-control" data-nuke="subcategory" id="subcategory" type="text" name="subcategory" />
+                    <input class="form-control btn btn-success" disabled id="subcategorySubmit" type="submit" />
+                </form>
+            </div>
+        </div>
+        <div class="col-md-2 c-border c-border-2px" style="height: 150px; margin: 10px;">
+            Add Color
+            <div class="row">
+                <form action="/Product/AddColor/">
+                    <input id="color" data-nuke="color" class="form-control" type="text" name="color" />
+                    <input id="colorbtn" class="form-control btn btn-success" disabled type="submit" />
+                </form>
+            </div>
+        </div>
+        <div class="col-md-2 c-border c-border-2px" style="height: 150px; margin: 10px;">
+
+        </div>
+        <div class="col-md-2 c-border c-border-2px" style="height: 150px; margin: 10px;">
+
+        </div>
+        <div class="col-md-2 c-border c-border-2px" style="height: 150px; margin: 10px;">
+
+        </div>
+        <div class="col-md-2 c-border c-border-2px" style="height: 150px; margin: 10px;">
+
+        </div>
+</div>
+
+
+@section myScript{
+    <script type="text/javascript">
+      $('#deptwo').change(function () {
+            let name = $(this).val();
+            $.ajax({ url: "/Product/GetCategorybyName/?name=" + name, method: "GET" }).done(function (result) {
+                $('#cat2').html(result);
+            });
+        });
+        $('#countryName,#cityName,#departmentName,#categoryName,#subcategory,#color').keyup(function () {
+            let nuke = $(this).data('nuke');
+            let name = $(this).val();
+
+            if (nuke == 'country') {
+                CheckCountry(name);
+            }
+            else if (nuke == 'color') {
+                CheckColor(name);
+            }
+            else if (nuke == 'subcategory') {
+                let catvalue = $('#damage').val();
+                let depvalue = $('#deptwo').val();
+                CheckSubCategory(depvalue,catvalue,name)
+                console.log(catvalue + " " + depvalue + " " + name);
+            }
+            else if (nuke == 'category') {
+                let depvalue = $('#department').val();
+                CheckCategory(name, depvalue);
+            }
+            else if (nuke = 'department') {
+                console.log(name);
+                CheckDepartment(name);
+            }
+            else if (nuke = 'city') {
+                let depvalue = $('#countrylist').val();
+                CheckCity(name, depvalue);
+            }
+            else {
+                console.log('no relevant nuke');
+            }
+        });
+        function CheckColor(name) {
+            $.ajax({ url: "/Product/CheckColor/?name="+name, method: "GET" }).done(function (result) {
+                if (result == 'true') {
+                    $('#colorbtn').attr("disabled", "disabled");
+                    $('#message').html('Not Available');
+
+                }
+                else if (result == 'false') {
+                    $('#colorbtn').removeAttr('disabled');
+                    $('#message').html('Available');
+                }
+            });
+        }
+        function CheckSubCategory(catvalue,depvalue,name)
+        {
+            var obj = { "Name": name, "DepValue": depvalue,"CatValue":catvalue }
+            $.ajax({ url: "/Product/CheckSubCategory/", method: "GET", data: obj }).done(function (result) {
+                if (result == 'true') {
+                    $('#subcategorySubmit').attr("disabled", "disabled");
+                    $('#message').html('Not Available');
+
+                }
+                else if (result == 'false') {
+                    $('#subcategorySubmit').removeAttr('disabled');
+                    $('#message').html('Available');
+                }
+            });
+        }
+            function CheckCategory(name,depvalue) {
+                console.log(name + "-" + depvalue);
+                var obj = { "Name": name, "DepValue": depvalue}
+                $.ajax({ url: "/Product/CheckCategory/", method: "GET",data:obj }).done(function (result) {
+                    console.log(result);
+                    if (result == 'true') {
+                        $('#message').html('Not Available');
+                        $('#categorySubmit').attr("disabled", "disabled");
+                    }
+                    else {
+                        $('#message').html('Yes Available');
+                        $('#categorySubmit').removeAttr('disabled');
+
+                    }
+
+                });
+            }
+            function CheckDepartment(name) {
+                $.ajax({ url: "/Product/CheckDepartment/?name=" + name, method: "GET" }).done(function (result) {
+                    if (result == 'true') {
+                        $('#message').html('Not Available');
+                        $('#deparsubmit').attr("disabled", "disabled");
+                    }
+                    else {
+                        $('#message').html('Yes Available');
+                        $('#deparsubmit').removeAttr('disabled');
+
+                    }
+
+                });
+            }
+            function CheckCity(name, depvalue) {
+                var obj = {"Name":name,"DepValue":depvalue}
+                $.ajax({ url: "/Person/CheckCity/?name=" + name, method: "GET",data:obj }).done(function (result) {
+                    if (result == 'true') {
+                        $('#citySubmit').attr("disabled", "disabled");
+
+                    }
+                    else if (result == 'false') {
+                        $('#citySubmit').removeAttr('disabled');
+                    }
+                });
+            }
+            function CheckCountry(name) {
+                $.ajax({ url: "/Person/CheckCountry/?name=" + name, method: "GET" }).done(function (result) {
+                    if (result == 'true') {
+                        $('#countrySubmit').attr("disabled", "disabled");
+                        $('#message').html('Not Available');
+                    }
+                    else if (result == 'false') {
+                        $('#countrySubmit').removeAttr('disabled');
+                        $('#message').html('Available');
+                    }
+                });
+            }
+
+          
+          
+    </script>
+
+}

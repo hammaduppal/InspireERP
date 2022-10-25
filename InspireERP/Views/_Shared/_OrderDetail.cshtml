@@ -1,0 +1,64 @@
+﻿@using ILibrary.SaleManager;
+
+@{ 
+    OrderMaster om = ViewBag.Order;
+
+}
+
+
+<table class="table table-bordered table-condensed table-hover">
+    <thead>
+        <tr>
+            <td>
+                Product Name
+            </td>
+            <td>
+               Product Price
+            </td>
+            <td>Delivery Charges</td>
+            <td>
+                Product Total
+            </td>
+
+            <td>
+                Date / Time
+            </td>
+            <td>
+                Qty
+            </td>
+            <td>Image</td>
+        </tr>
+    </thead>
+    <tbody>
+       
+        <tr>
+
+            <td>
+                @om.Product.Name
+            </td>
+
+            <td>@om.Price</td>
+            <td>
+                @om.Product.DeliveryCharges
+            </td>
+            <td>
+                @om.Total
+            </td>
+            <td>
+                @om.OrderDateTime
+            </td>
+            <td>
+                @om.Qty
+            </td>
+            <td>
+                <div class="col-md-2 col-sm-3 col-xs-5 c-cart-image">
+                    <img width="50px;" src="@om.Product.Images.First().URL" />
+                </div>
+
+            </td>
+
+        </tr>
+        
+
+    </tbody>
+</table>

@@ -1,0 +1,871 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8C06EC1E-DA59-4412-97C7-3780C85E423C}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>InspireERP</RootNamespace>
+    <AssemblyName>InspireERP</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=6.0.8.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.6.0.8\lib\net462\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.Interfaces, Version=6.0.0.0, Culture=neutral, PublicKeyToken=a694d7f3b0907a61, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.Interfaces.6.0.0\lib\net452\EPPlus.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.System.Drawing, Version=6.0.0.0, Culture=neutral, PublicKeyToken=2308d35469c9bac0, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.System.Drawing.6.0.0\lib\net452\EPPlus.System.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.2.1.1\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=1.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.1.4.1\lib\net46\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1001\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="Quartz, Version=3.5.0.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Quartz.3.5.0\lib\net472\Quartz.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.7\lib\net45\System.Web.Webpages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Deployment">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.7\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.7\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\assets\base\css\components.css" />
+    <Content Include="Content\assets\base\css\custom.css" />
+    <Content Include="Content\assets\base\css\plugins.css" />
+    <Content Include="Content\assets\base\css\themes\blue1.css" />
+    <Content Include="Content\assets\base\css\themes\blue2.css" />
+    <Content Include="Content\assets\base\css\themes\blue3.css" />
+    <Content Include="Content\assets\base\css\themes\brown1.css" />
+    <Content Include="Content\assets\base\css\themes\brown2.css" />
+    <Content Include="Content\assets\base\css\themes\brown3.css" />
+    <Content Include="Content\assets\base\css\themes\dark1.css" />
+    <Content Include="Content\assets\base\css\themes\dark2.css" />
+    <Content Include="Content\assets\base\css\themes\dark3.css" />
+    <Content Include="Content\assets\base\css\themes\default.css" />
+    <Content Include="Content\assets\base\css\themes\green1.css" />
+    <Content Include="Content\assets\base\css\themes\green2.css" />
+    <Content Include="Content\assets\base\css\themes\green3.css" />
+    <Content Include="Content\assets\base\css\themes\purple1.css" />
+    <Content Include="Content\assets\base\css\themes\purple2.css" />
+    <Content Include="Content\assets\base\css\themes\purple3.css" />
+    <Content Include="Content\assets\base\css\themes\red1.css" />
+    <Content Include="Content\assets\base\css\themes\red2.css" />
+    <Content Include="Content\assets\base\css\themes\red3.css" />
+    <Content Include="Content\assets\base\css\themes\yellow1.css" />
+    <Content Include="Content\assets\base\css\themes\yellow2.css" />
+    <Content Include="Content\assets\base\css\themes\yellow3.css" />
+    <Content Include="Content\assets\base\js\app.js" />
+    <Content Include="Content\assets\base\js\components-shop.js" />
+    <Content Include="Content\assets\base\js\components.js" />
+    <Content Include="Content\assets\base\js\scripts\pages\2col-portfolio.js" />
+    <Content Include="Content\assets\base\js\scripts\pages\4col-portfolio.js" />
+    <Content Include="Content\assets\base\js\scripts\pages\contact-2.js" />
+    <Content Include="Content\assets\base\js\scripts\pages\contact.js" />
+    <Content Include="Content\assets\base\js\scripts\pages\extended-portfolio.js" />
+    <Content Include="Content\assets\base\js\scripts\pages\faq.js" />
+    <Content Include="Content\assets\base\js\scripts\pages\fullwidth-gallery.js" />
+    <Content Include="Content\assets\base\js\scripts\pages\index-gallery.js" />
+    <Content Include="Content\assets\base\js\scripts\pages\lightbox-gallery.js" />
+    <Content Include="Content\assets\base\js\scripts\pages\masonry-gallery.js" />
+    <Content Include="Content\assets\base\js\scripts\pages\masonry-portfolio.js" />
+    <Content Include="Content\assets\base\js\scripts\pages\modals.js" />
+    <Content Include="Content\assets\base\js\scripts\reveal-animate\reveal-animate.js" />
+    <Content Include="Content\assets\base\js\scripts\revo-slider\shop-slider-1.js" />
+    <Content Include="Content\assets\base\js\scripts\revo-slider\shop-slider-2.js" />
+    <Content Include="Content\assets\base\js\scripts\revo-slider\shop-slider-3.js" />
+    <Content Include="Content\assets\base\js\scripts\revo-slider\shop-slider-4.js" />
+    <Content Include="Content\assets\base\js\scripts\revo-slider\slider-1.js" />
+    <Content Include="Content\assets\base\js\scripts\revo-slider\slider-10.js" />
+    <Content Include="Content\assets\base\js\scripts\revo-slider\slider-11.js" />
+    <Content Include="Content\assets\base\js\scripts\revo-slider\slider-12.js" />
+    <Content Include="Content\assets\base\js\scripts\revo-slider\slider-2.js" />
+    <Content Include="Content\assets\base\js\scripts\revo-slider\slider-3.js" />
+    <Content Include="Content\assets\base\js\scripts\revo-slider\slider-4.js" />
+    <Content Include="Content\assets\base\js\scripts\revo-slider\slider-5.js" />
+    <Content Include="Content\assets\base\js\scripts\revo-slider\slider-6.js" />
+    <Content Include="Content\assets\base\js\scripts\revo-slider\slider-7.js" />
+    <Content Include="Content\assets\base\js\scripts\revo-slider\slider-8.js" />
+    <Content Include="Content\assets\base\js\scripts\revo-slider\slider-9.js" />
+    <Content Include="Content\assets\img\appimages\1.png" />
+    <Content Include="Content\assets\img\appimages\2.png" />
+    <Content Include="Content\assets\img\appimages\22.png" />
+    <Content Include="Content\assets\img\appimages\3.png" />
+    <Content Include="Content\assets\img\appimages\5.png" />
+    <Content Include="Content\assets\img\appimages\6.png" />
+    <Content Include="Content\assets\img\appimages\errorpage.jpg" />
+    <Content Include="Content\assets\img\appimages\inspire.png" />
+    <Content Include="Content\assets\img\background\bg-3.jpg" />
+    <Content Include="Content\assets\img\background\bg-95.jpg" />
+    <Content Include="Content\assets\img\banners\Banner1.jpg" />
+    <Content Include="Content\assets\img\banners\promo1.jpg" />
+    <Content Include="Content\assets\img\banners\promo2.jpg" />
+    <Content Include="Content\assets\img\banners\promo3.jpg" />
+    <Content Include="Content\assets\img\banners\salelow.jpg" />
+    <Content Include="Content\assets\img\banners\SalesImage.jpg" />
+    <Content Include="Content\assets\img\bImages\inspire.png" />
+    <Content Include="Content\assets\img\nophoto.png" />
+    <Content Include="Content\assets\img\pimages\p1.jpg" />
+    <Content Include="Content\assets\img\pimages\p2.jpg" />
+    <Content Include="Content\assets\img\pimages\p3.jpg" />
+    <Content Include="Content\assets\img\salelow.jpg" />
+    <Content Include="Content\assets\img\shoppingimage.jpg" />
+    <Content Include="Content\assets\img\sliderImages\47.jpg" />
+    <Content Include="Content\assets\img\sliderImages\65.jpg" />
+    <Content Include="Content\assets\plugins\animate\animate.css" />
+    <Content Include="Content\assets\plugins\animate\animate.min.css" />
+    <Content Include="Content\assets\plugins\bootstrap-social\bootstrap-social.css" />
+    <Content Include="Content\assets\plugins\bootstrap\css\bootstrap.css" />
+    <Content Include="Content\assets\plugins\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\assets\plugins\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\assets\plugins\bootstrap\js\bootstrap.js" />
+    <Content Include="Content\assets\plugins\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\assets\plugins\counterup\jquery.counterup.js" />
+    <Content Include="Content\assets\plugins\counterup\jquery.counterup.min.js" />
+    <Content Include="Content\assets\plugins\counterup\jquery.waypoints.min.js" />
+    <Content Include="Content\assets\plugins\cubeportfolio\css\cubeportfolio.css" />
+    <Content Include="Content\assets\plugins\cubeportfolio\css\cubeportfolio.min.css" />
+    <Content Include="Content\assets\plugins\cubeportfolio\img\cbp-loading-popup.gif" />
+    <Content Include="Content\assets\plugins\cubeportfolio\img\cbp-loading.gif" />
+    <Content Include="Content\assets\plugins\cubeportfolio\img\cbp-sprite.png" />
+    <Content Include="Content\assets\plugins\cubeportfolio\js\jquery.cubeportfolio.js" />
+    <Content Include="Content\assets\plugins\cubeportfolio\js\jquery.cubeportfolio.min.js" />
+    <Content Include="Content\assets\plugins\datatables\dataTables.bootstrap4.css" />
+    <Content Include="Content\assets\plugins\datatables\dataTables.bootstrap4.js" />
+    <Content Include="Content\assets\plugins\datatables\jquery.dataTables.js" />
+    <Content Include="Content\assets\plugins\fancybox\blank.gif" />
+    <Content Include="Content\assets\plugins\fancybox\fancybox_loading%402x.gif" />
+    <Content Include="Content\assets\plugins\fancybox\fancybox_loading.gif" />
+    <Content Include="Content\assets\plugins\fancybox\fancybox_overlay.png" />
+    <Content Include="Content\assets\plugins\fancybox\fancybox_sprite%402x.png" />
+    <Content Include="Content\assets\plugins\fancybox\fancybox_sprite.png" />
+    <Content Include="Content\assets\plugins\fancybox\helpers\fancybox_buttons.png" />
+    <Content Include="Content\assets\plugins\fancybox\helpers\jquery.fancybox-buttons.css" />
+    <Content Include="Content\assets\plugins\fancybox\helpers\jquery.fancybox-buttons.js" />
+    <Content Include="Content\assets\plugins\fancybox\helpers\jquery.fancybox-media.js" />
+    <Content Include="Content\assets\plugins\fancybox\helpers\jquery.fancybox-thumbs.css" />
+    <Content Include="Content\assets\plugins\fancybox\helpers\jquery.fancybox-thumbs.js" />
+    <Content Include="Content\assets\plugins\fancybox\jquery.fancybox.css" />
+    <Content Include="Content\assets\plugins\fancybox\jquery.fancybox.js" />
+    <Content Include="Content\assets\plugins\fancybox\jquery.fancybox.pack.js" />
+    <Content Include="Content\assets\plugins\font-awesome\css\font-awesome.css" />
+    <Content Include="Content\assets\plugins\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Content\assets\plugins\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\assets\plugins\jquery-migrate.min.js" />
+    <Content Include="Content\assets\plugins\jquery.easing.min.js" />
+    <Content Include="Content\assets\plugins\jquery.min.js" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\css\bootstrapTheme.css" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\css\custom.css" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\css\responsive.css" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\ico\apple-touch-icon-114-precomposed.png" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\ico\apple-touch-icon-144-precomposed.png" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\ico\apple-touch-icon-57-precomposed.png" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\ico\apple-touch-icon-72-precomposed.png" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\ico\favicon.png" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\img\AjaxLoader.gif" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\img\demo-slides\controls.png" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\img\demo-slides\css3.png" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\img\demo-slides\feather.png" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\img\demo-slides\grab.png" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\img\demo-slides\modern.png" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\img\demo-slides\multi.png" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\img\demo-slides\responsive.png" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\img\demo-slides\tons.png" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\img\demo-slides\touch.png" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\img\demo-slides\zombie.png" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\img\glyphicons-halflings-green.png" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\img\glyphicons-halflings-white.png" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\img\glyphicons-halflings.png" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\img\owl-logo.png" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\js\application.js" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\js\bootstrap-collapse.js" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\js\bootstrap-tab.js" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\js\bootstrap-transition.js" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\js\google-code-prettify\prettify.css" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\js\google-code-prettify\prettify.js" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\js\google-code-prettify\run_prettify.js" />
+    <Content Include="Content\assets\plugins\owl-carousel\assets\js\jquery-1.9.1.min.js" />
+    <Content Include="Content\assets\plugins\owl-carousel\owl.carousel.css" />
+    <Content Include="Content\assets\plugins\owl-carousel\owl.carousel.js" />
+    <Content Include="Content\assets\plugins\owl-carousel\owl.carousel.min.js" />
+    <Content Include="Content\assets\plugins\owl-carousel\owl.theme.css" />
+    <Content Include="Content\assets\plugins\owl-carousel\owl.transitions.css" />
+    <Content Include="Content\assets\plugins\pace.min.js" />
+    <Content Include="Content\assets\plugins\reveal-animate\wow.js" />
+    <Content Include="Content\assets\plugins\reveal-animate\wow.min.js" />
+    <Content Include="Content\assets\plugins\revo-slider\assets\coloredbg.png" />
+    <Content Include="Content\assets\plugins\revo-slider\assets\gridtile.png" />
+    <Content Include="Content\assets\plugins\revo-slider\assets\gridtile_3x3.png" />
+    <Content Include="Content\assets\plugins\revo-slider\assets\gridtile_3x3_white.png" />
+    <Content Include="Content\assets\plugins\revo-slider\assets\gridtile_white.png" />
+    <Content Include="Content\assets\plugins\revo-slider\assets\loader.gif" />
+    <Content Include="Content\assets\plugins\revo-slider\assets\sources\fb.png" />
+    <Content Include="Content\assets\plugins\revo-slider\assets\sources\fr.png" />
+    <Content Include="Content\assets\plugins\revo-slider\assets\sources\ig.png" />
+    <Content Include="Content\assets\plugins\revo-slider\assets\sources\post.png" />
+    <Content Include="Content\assets\plugins\revo-slider\assets\sources\revolution_slide1.png" />
+    <Content Include="Content\assets\plugins\revo-slider\assets\sources\revolution_slide2.png" />
+    <Content Include="Content\assets\plugins\revo-slider\assets\sources\tw.png" />
+    <Content Include="Content\assets\plugins\revo-slider\assets\sources\vm.png" />
+    <Content Include="Content\assets\plugins\revo-slider\assets\sources\wc.png" />
+    <Content Include="Content\assets\plugins\revo-slider\assets\sources\yt.png" />
+    <Content Include="Content\assets\plugins\revo-slider\css\closedhand.cur" />
+    <Content Include="Content\assets\plugins\revo-slider\css\index.php" />
+    <Content Include="Content\assets\plugins\revo-slider\css\layers.css" />
+    <Content Include="Content\assets\plugins\revo-slider\css\navigation-skins\ares.css" />
+    <Content Include="Content\assets\plugins\revo-slider\css\navigation-skins\custom.css" />
+    <Content Include="Content\assets\plugins\revo-slider\css\navigation-skins\dione.css" />
+    <Content Include="Content\assets\plugins\revo-slider\css\navigation-skins\erinyen.css" />
+    <Content Include="Content\assets\plugins\revo-slider\css\navigation-skins\gyges.css" />
+    <Content Include="Content\assets\plugins\revo-slider\css\navigation-skins\hades.css" />
+    <Content Include="Content\assets\plugins\revo-slider\css\navigation-skins\hebe.css" />
+    <Content Include="Content\assets\plugins\revo-slider\css\navigation-skins\hephaistos.css" />
+    <Content Include="Content\assets\plugins\revo-slider\css\navigation-skins\hermes.css" />
+    <Content Include="Content\assets\plugins\revo-slider\css\navigation-skins\hesperiden.css" />
+    <Content Include="Content\assets\plugins\revo-slider\css\navigation-skins\metis.css" />
+    <Content Include="Content\assets\plugins\revo-slider\css\navigation-skins\persephone.css" />
+    <Content Include="Content\assets\plugins\revo-slider\css\navigation-skins\uranus.css" />
+    <Content Include="Content\assets\plugins\revo-slider\css\navigation-skins\zeus.css" />
+    <Content Include="Content\assets\plugins\revo-slider\css\navigation.css" />
+    <Content Include="Content\assets\plugins\revo-slider\css\openhand.cur" />
+    <Content Include="Content\assets\plugins\revo-slider\css\settings.css" />
+    <Content Include="Content\assets\plugins\revo-slider\fonts\font-awesome\css\font-awesome.css" />
+    <Content Include="Content\assets\plugins\revo-slider\fonts\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Content\assets\plugins\revo-slider\fonts\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\assets\plugins\revo-slider\fonts\font-awesome\index.php" />
+    <Content Include="Content\assets\plugins\revo-slider\fonts\index.php" />
+    <Content Include="Content\assets\plugins\revo-slider\fonts\pe-icon-7-stroke\css\helper.css" />
+    <Content Include="Content\assets\plugins\revo-slider\fonts\pe-icon-7-stroke\css\index.php" />
+    <Content Include="Content\assets\plugins\revo-slider\fonts\pe-icon-7-stroke\css\pe-icon-7-stroke.css" />
+    <Content Include="Content\assets\plugins\revo-slider\fonts\pe-icon-7-stroke\fonts\index.php" />
+    <Content Include="Content\assets\plugins\revo-slider\fonts\pe-icon-7-stroke\fonts\Pe-icon-7-stroke.svg" />
+    <Content Include="Content\assets\plugins\revo-slider\fonts\pe-icon-7-stroke\index.php" />
+    <Content Include="Content\assets\plugins\revo-slider\fonts\revicons\index.php" />
+    <Content Include="Content\assets\plugins\revo-slider\fonts\revicons\revicons.svg" />
+    <Content Include="Content\assets\plugins\revo-slider\index.php" />
+    <Content Include="Content\assets\plugins\revo-slider\js\extensions\index.php" />
+    <Content Include="Content\assets\plugins\revo-slider\js\extensions\revolution.extension.actions.min.js" />
+    <Content Include="Content\assets\plugins\revo-slider\js\extensions\revolution.extension.carousel.min.js" />
+    <Content Include="Content\assets\plugins\revo-slider\js\extensions\revolution.extension.kenburn.min.js" />
+    <Content Include="Content\assets\plugins\revo-slider\js\extensions\revolution.extension.layeranimation.min.js" />
+    <Content Include="Content\assets\plugins\revo-slider\js\extensions\revolution.extension.migration.min.js" />
+    <Content Include="Content\assets\plugins\revo-slider\js\extensions\revolution.extension.navigation.min.js" />
+    <Content Include="Content\assets\plugins\revo-slider\js\extensions\revolution.extension.parallax.min.js" />
+    <Content Include="Content\assets\plugins\revo-slider\js\extensions\revolution.extension.slideanims.min.js" />
+    <Content Include="Content\assets\plugins\revo-slider\js\extensions\revolution.extension.video.min copy.js" />
+    <Content Include="Content\assets\plugins\revo-slider\js\extensions\revolution.extension.video.min.js" />
+    <Content Include="Content\assets\plugins\revo-slider\js\extensions\source\index.php" />
+    <Content Include="Content\assets\plugins\revo-slider\js\extensions\source\revolution.extension.actions.js" />
+    <Content Include="Content\assets\plugins\revo-slider\js\extensions\source\revolution.extension.carousel.js" />
+    <Content Include="Content\assets\plugins\revo-slider\js\extensions\source\revolution.extension.kenburn.js" />
+    <Content Include="Content\assets\plugins\revo-slider\js\extensions\source\revolution.extension.layeranimation.js" />
+    <Content Include="Content\assets\plugins\revo-slider\js\extensions\source\revolution.extension.migration.js" />
+    <Content Include="Content\assets\plugins\revo-slider\js\extensions\source\revolution.extension.navigation.js" />
+    <Content Include="Content\assets\plugins\revo-slider\js\extensions\source\revolution.extension.parallax.js" />
+    <Content Include="Content\assets\plugins\revo-slider\js\extensions\source\revolution.extension.slideanims.js" />
+    <Content Include="Content\assets\plugins\revo-slider\js\extensions\source\revolution.extension.video.js" />
+    <Content Include="Content\assets\plugins\revo-slider\js\index.php" />
+    <Content Include="Content\assets\plugins\revo-slider\js\jquery.themepunch.enablelog.js" />
+    <Content Include="Content\assets\plugins\revo-slider\js\jquery.themepunch.revolution.min.js" />
+    <Content Include="Content\assets\plugins\revo-slider\js\jquery.themepunch.tools.min.js" />
+    <Content Include="Content\assets\plugins\revo-slider\js\source\index.php" />
+    <Content Include="Content\assets\plugins\revo-slider\js\source\jquery.themepunch.enablelog.js" />
+    <Content Include="Content\assets\plugins\revo-slider\js\source\jquery.themepunch.revolution.js" />
+    <Content Include="Content\assets\plugins\revo-slider\js\source\jquery.themepunch.tools.min.js" />
+    <Content Include="Content\assets\plugins\revo-slider\php\facebook\class-facebook.php" />
+    <Content Include="Content\assets\plugins\revo-slider\php\flickr\class-flickr.php" />
+    <Content Include="Content\assets\plugins\revo-slider\php\instagram\class-instagram.php" />
+    <Content Include="Content\assets\plugins\revo-slider\php\twitter\class-twitter.php" />
+    <Content Include="Content\assets\plugins\revo-slider\php\twitter\connection\Application.php" />
+    <Content Include="Content\assets\plugins\revo-slider\php\twitter\connection\ConnectionAbstract.php" />
+    <Content Include="Content\assets\plugins\revo-slider\php\twitter\connection\User.php" />
+    <Content Include="Content\assets\plugins\revo-slider\php\twitter\RestApi.php" />
+    <Content Include="Content\assets\plugins\revo-slider\php\vimeo\class-vimeo.php" />
+    <Content Include="Content\assets\plugins\revo-slider\php\youtube\class-youtube.php" />
+    <Content Include="Content\assets\plugins\simple-line-icons\fonts\Simple-Line-Icons.dev.svg" />
+    <Content Include="Content\assets\plugins\simple-line-icons\fonts\Simple-Line-Icons.svg" />
+    <Content Include="Content\assets\plugins\simple-line-icons\icons-lte-ie7.js" />
+    <Content Include="Content\assets\plugins\simple-line-icons\License.txt" />
+    <Content Include="Content\assets\plugins\simple-line-icons\Readme.txt" />
+    <Content Include="Content\assets\plugins\simple-line-icons\simple-line-icons.css" />
+    <Content Include="Content\assets\plugins\simple-line-icons\simple-line-icons.min.css" />
+    <Content Include="Content\assets\plugins\slider-for-bootstrap\css\slider.css" />
+    <Content Include="Content\assets\plugins\slider-for-bootstrap\js\bootstrap-slider.js" />
+    <Content Include="Content\assets\plugins\socicon\font\socicon.svg" />
+    <Content Include="Content\assets\plugins\socicon\png\500px.png" />
+    <Content Include="Content\assets\plugins\socicon\png\8tracks.png" />
+    <Content Include="Content\assets\plugins\socicon\png\amazon.png" />
+    <Content Include="Content\assets\plugins\socicon\png\android.png" />
+    <Content Include="Content\assets\plugins\socicon\png\apple.png" />
+    <Content Include="Content\assets\plugins\socicon\png\appnet.png" />
+    <Content Include="Content\assets\plugins\socicon\png\bebo.png" />
+    <Content Include="Content\assets\plugins\socicon\png\behance.png" />
+    <Content Include="Content\assets\plugins\socicon\png\blogger.png" />
+    <Content Include="Content\assets\plugins\socicon\png\buffer.png" />
+    <Content Include="Content\assets\plugins\socicon\png\chimein.png" />
+    <Content Include="Content\assets\plugins\socicon\png\coderwall.png" />
+    <Content Include="Content\assets\plugins\socicon\png\dailymotion.png" />
+    <Content Include="Content\assets\plugins\socicon\png\delicious.png" />
+    <Content Include="Content\assets\plugins\socicon\png\deviantart.png" />
+    <Content Include="Content\assets\plugins\socicon\png\digg.png" />
+    <Content Include="Content\assets\plugins\socicon\png\disqus.png" />
+    <Content Include="Content\assets\plugins\socicon\png\dribbble.png" />
+    <Content Include="Content\assets\plugins\socicon\png\drupal.png" />
+    <Content Include="Content\assets\plugins\socicon\png\ello.png" />
+    <Content Include="Content\assets\plugins\socicon\png\envato.png" />
+    <Content Include="Content\assets\plugins\socicon\png\facebook.png" />
+    <Content Include="Content\assets\plugins\socicon\png\feedburner.png" />
+    <Content Include="Content\assets\plugins\socicon\png\flattr.png" />
+    <Content Include="Content\assets\plugins\socicon\png\flickr.png" />
+    <Content Include="Content\assets\plugins\socicon\png\forrst.png" />
+    <Content Include="Content\assets\plugins\socicon\png\foursquare.png" />
+    <Content Include="Content\assets\plugins\socicon\png\friendfeed.png" />
+    <Content Include="Content\assets\plugins\socicon\png\github.png" />
+    <Content Include="Content\assets\plugins\socicon\png\goodreads.png" />
+    <Content Include="Content\assets\plugins\socicon\png\google.png" />
+    <Content Include="Content\assets\plugins\socicon\png\grooveshark.png" />
+    <Content Include="Content\assets\plugins\socicon\png\houzz.png" />
+    <Content Include="Content\assets\plugins\socicon\png\identica.png" />
+    <Content Include="Content\assets\plugins\socicon\png\instagram.png" />
+    <Content Include="Content\assets\plugins\socicon\png\lanyrd.png" />
+    <Content Include="Content\assets\plugins\socicon\png\lastfm.png" />
+    <Content Include="Content\assets\plugins\socicon\png\linkedin.png" />
+    <Content Include="Content\assets\plugins\socicon\png\mail.png" />
+    <Content Include="Content\assets\plugins\socicon\png\meetup.png" />
+    <Content Include="Content\assets\plugins\socicon\png\mixloud.png" />
+    <Content Include="Content\assets\plugins\socicon\png\myspace.png" />
+    <Content Include="Content\assets\plugins\socicon\png\newsvine.png" />
+    <Content Include="Content\assets\plugins\socicon\png\odnoklassniki.png" />
+    <Content Include="Content\assets\plugins\socicon\png\outlook.png" />
+    <Content Include="Content\assets\plugins\socicon\png\patreon.png" />
+    <Content Include="Content\assets\plugins\socicon\png\paypal.png" />
+    <Content Include="Content\assets\plugins\socicon\png\persona.png" />
+    <Content Include="Content\assets\plugins\socicon\png\pinterest.png" />
+    <Content Include="Content\assets\plugins\socicon\png\play.png" />
+    <Content Include="Content\assets\plugins\socicon\png\playstation.png" />
+    <Content Include="Content\assets\plugins\socicon\png\reddit.png" />
+    <Content Include="Content\assets\plugins\socicon\png\rss.png" />
+    <Content Include="Content\assets\plugins\socicon\png\skype.png" />
+    <Content Include="Content\assets\plugins\socicon\png\slideshare.png" />
+    <Content Include="Content\assets\plugins\socicon\png\smugmug.png" />
+    <Content Include="Content\assets\plugins\socicon\png\soundcloud.png" />
+    <Content Include="Content\assets\plugins\socicon\png\spotify.png" />
+    <Content Include="Content\assets\plugins\socicon\png\stackoverflow.png" />
+    <Content Include="Content\assets\plugins\socicon\png\steam.png" />
+    <Content Include="Content\assets\plugins\socicon\png\stumbleupon.png" />
+    <Content Include="Content\assets\plugins\socicon\png\swarm.png" />
+    <Content Include="Content\assets\plugins\socicon\png\technorati.png" />
+    <Content Include="Content\assets\plugins\socicon\png\tripadvisor.png" />
+    <Content Include="Content\assets\plugins\socicon\png\tripit.png" />
+    <Content Include="Content\assets\plugins\socicon\png\triplej.png" />
+    <Content Include="Content\assets\plugins\socicon\png\tumblr.png" />
+    <Content Include="Content\assets\plugins\socicon\png\twitch.png" />
+    <Content Include="Content\assets\plugins\socicon\png\twitter.png" />
+    <Content Include="Content\assets\plugins\socicon\png\viadeo.png" />
+    <Content Include="Content\assets\plugins\socicon\png\vimeo.png" />
+    <Content Include="Content\assets\plugins\socicon\png\vine.png" />
+    <Content Include="Content\assets\plugins\socicon\png\vkontakte.png" />
+    <Content Include="Content\assets\plugins\socicon\png\wikipedia.png" />
+    <Content Include="Content\assets\plugins\socicon\png\windows.png" />
+    <Content Include="Content\assets\plugins\socicon\png\wordpress.png" />
+    <Content Include="Content\assets\plugins\socicon\png\xbox.png" />
+    <Content Include="Content\assets\plugins\socicon\png\xing.png" />
+    <Content Include="Content\assets\plugins\socicon\png\yahoo.png" />
+    <Content Include="Content\assets\plugins\socicon\png\yammer.png" />
+    <Content Include="Content\assets\plugins\socicon\png\yelp.png" />
+    <Content Include="Content\assets\plugins\socicon\png\youtube.png" />
+    <Content Include="Content\assets\plugins\socicon\png\zerply.png" />
+    <Content Include="Content\assets\plugins\socicon\png\zynga.png" />
+    <Content Include="Content\assets\plugins\socicon\readme.html" />
+    <Content Include="Content\assets\plugins\socicon\socicon.css" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_500px.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_8tracks.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_amazon.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_android.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_app.net.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_apple.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_bebo.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_behance.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_blogger.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_buffer.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_chime.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_coderwall.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_dailymotion.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_delicious.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_deviantart.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_digg.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_dribbble.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_drupal.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_ello.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_envato.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_facebook.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_feedburner.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_flattr.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_flickr.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_forrst.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_foursquare.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_friendfeed.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_github.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_goodreads.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_google+.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_grooveshark.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_houzz.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_identica.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_instagram.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_lanryd.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_lastfm.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_linkedin.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_mail.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_meetup.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_mixcloud.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_myspace.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_netcodes.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_newswine.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_odnoklassniki.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_outlook.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_patreon.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_paypal.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_persona.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_pinterest.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_play.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_playstation.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_reddit.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_rss.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_skype.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_slideshare.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_smugmug.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_soundcloud.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_spotify.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_stackoverflow.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_steam.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_stumbleupon.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_swarm.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_technorati.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_tripadvisor.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_tripit.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_triplej.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_tumbler.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_twitch.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_twitter.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_viadeo.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_vimeo.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_vine.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_VK.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_wikpedia.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_windows.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_wordpress.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_xbox.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_xing.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_yahoo.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_yammer.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_yelp.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_youtube.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_zerply.svg" />
+    <Content Include="Content\assets\plugins\socicon\svg\socicon_zynga.svg" />
+    <Content Include="Content\assets\plugins\zoom-master\jquery.zoom.min.js" />
+    <Content Include="Global.asax" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminPanelController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PersonController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\SiteOwnerController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AddtoCartModel.cs" />
+    <Compile Include="Models\ModelHelper.cs" />
+    <Compile Include="Models\ObjectModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebUtil.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="Content\assets\plugins\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\assets\plugins\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\assets\plugins\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\assets\plugins\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\assets\plugins\socicon\.DS_Store" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_500px.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_8tracks.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_amazon.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_android.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_app.net.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_apple.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_bebo.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_behance.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_blogger.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_buffer.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_chime.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_coderwall.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_dailymotion.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_delicious.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_deviantart.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_digg.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_dribbble.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_drupal.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_ello.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_envato.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_facebook.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_feedburner.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_flattr.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_flickr.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_forrst.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_foursquare.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_friendfeed.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_github.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_goodreads.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_google+.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_grooveshark.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_houzz.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_identica.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_instagram.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_lanryd.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_lastfm.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_linkedin.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_mail.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_meetup.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_mixcloud.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_myspace.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_netcodes.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_newswine.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_odnoklassniki.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_outlook.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_patreon.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_paypal.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_persona.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_pinterest.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_play.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_playstation.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_reddit.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_rss.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_skype.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_slideshare.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_smugmug.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_soundcloud.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_spotify.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_stackoverflow.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_steam.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_stumbleupon.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_swarm.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_technorati.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_tripadvisor.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_tripit.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_triplej.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_tumbler.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_twitch.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_twitter.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_viadeo.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_vimeo.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_vine.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_VK.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_wikpedia.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_windows.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_wordpress.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_xbox.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_xing.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_yahoo.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_yammer.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_yelp.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_youtube.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_zerply.eps" />
+    <Content Include="Content\assets\plugins\socicon\eps\socicon_zynga.eps" />
+    <Content Include="Content\assets\plugins\socicon\font\.DS_Store" />
+    <Content Include="Content\assets\plugins\socicon\font\.empty" />
+    <Content Include="Content\assets\plugins\socicon\font\socicon.eot" />
+    <Content Include="Content\assets\plugins\socicon\font\socicon.ttf" />
+    <Content Include="Content\assets\plugins\socicon\font\socicon.woff" />
+    <Content Include="Content\assets\plugins\socicon\font\socicon.woff2" />
+    <Content Include="Content\assets\plugins\socicon\readme.md" />
+    <Content Include="Content\assets\plugins\bootstrap-social\LICENSE" />
+    <Content Include="Content\assets\plugins\bootstrap-social\README.md" />
+    <Content Include="Content\assets\plugins\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\assets\plugins\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\assets\plugins\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\assets\plugins\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\assets\plugins\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Content\assets\plugins\font-awesome\less\animated.less" />
+    <Content Include="Content\assets\plugins\font-awesome\less\bordered-pulled.less" />
+    <Content Include="Content\assets\plugins\font-awesome\less\core.less" />
+    <Content Include="Content\assets\plugins\font-awesome\less\fixed-width.less" />
+    <Content Include="Content\assets\plugins\font-awesome\less\font-awesome.less" />
+    <Content Include="Content\assets\plugins\font-awesome\less\icons.less" />
+    <Content Include="Content\assets\plugins\font-awesome\less\larger.less" />
+    <Content Include="Content\assets\plugins\font-awesome\less\list.less" />
+    <Content Include="Content\assets\plugins\font-awesome\less\mixins.less" />
+    <Content Include="Content\assets\plugins\font-awesome\less\path.less" />
+    <Content Include="Content\assets\plugins\font-awesome\less\rotated-flipped.less" />
+    <Content Include="Content\assets\plugins\font-awesome\less\stacked.less" />
+    <Content Include="Content\assets\plugins\font-awesome\less\variables.less" />
+    <Content Include="Content\assets\plugins\font-awesome\scss\font-awesome.scss" />
+    <Content Include="Content\assets\plugins\font-awesome\scss\_animated.scss" />
+    <Content Include="Content\assets\plugins\font-awesome\scss\_bordered-pulled.scss" />
+    <Content Include="Content\assets\plugins\font-awesome\scss\_core.scss" />
+    <Content Include="Content\assets\plugins\font-awesome\scss\_fixed-width.scss" />
+    <Content Include="Content\assets\plugins\font-awesome\scss\_icons.scss" />
+    <Content Include="Content\assets\plugins\font-awesome\scss\_larger.scss" />
+    <Content Include="Content\assets\plugins\font-awesome\scss\_list.scss" />
+    <Content Include="Content\assets\plugins\font-awesome\scss\_mixins.scss" />
+    <Content Include="Content\assets\plugins\font-awesome\scss\_path.scss" />
+    <Content Include="Content\assets\plugins\font-awesome\scss\_rotated-flipped.scss" />
+    <Content Include="Content\assets\plugins\font-awesome\scss\_stacked.scss" />
+    <Content Include="Content\assets\plugins\font-awesome\scss\_variables.scss" />
+    <Content Include="Content\assets\plugins\simple-line-icons\fonts\Simple-Line-Icons.eot" />
+    <Content Include="Content\assets\plugins\simple-line-icons\fonts\Simple-Line-Icons.ttf" />
+    <Content Include="Content\assets\plugins\simple-line-icons\fonts\Simple-Line-Icons.woff" />
+    <Content Include="Content\assets\base\css\custom.scss" />
+    <Content Include="Content\assets\plugins\jquery.min.map" />
+    <Content Include="Content\assets\plugins\slider-for-bootstrap\less\slider.less" />
+    <Content Include="Content\assets\plugins\revo-slider\.DS_Store" />
+    <Content Include="Content\assets\plugins\revo-slider\fonts\.DS_Store" />
+    <Content Include="Content\assets\plugins\revo-slider\fonts\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\assets\plugins\revo-slider\fonts\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\assets\plugins\revo-slider\fonts\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\assets\plugins\revo-slider\fonts\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\assets\plugins\revo-slider\fonts\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Content\assets\plugins\revo-slider\fonts\pe-icon-7-stroke\fonts\Pe-icon-7-stroke.eot" />
+    <Content Include="Content\assets\plugins\revo-slider\fonts\pe-icon-7-stroke\fonts\Pe-icon-7-stroke.ttf" />
+    <Content Include="Content\assets\plugins\revo-slider\fonts\pe-icon-7-stroke\fonts\Pe-icon-7-stroke.woff" />
+    <Content Include="Content\assets\plugins\revo-slider\fonts\revicons\revicons.eot" />
+    <Content Include="Content\assets\plugins\revo-slider\fonts\revicons\revicons.ttf" />
+    <Content Include="Content\assets\plugins\revo-slider\fonts\revicons\revicons.woff" />
+    <Content Include="Content\assets\plugins\revo-slider\info.cfg" />
+    <Content Include="Content\assets\plugins\revo-slider\js\.DS_Store" />
+    <Content Include="Content\assets\plugins\cubeportfolio\img\cbp-sprite.psd" />
+    <Content Include="Content\assets\plugins\fancybox\CHANGELOG.md" />
+    <Content Include="Content\assets\plugins\fancybox\README.md" />
+    <Content Include="Content\assets\plugins\counterup\LICENSE" />
+    <Content Include="Content\assets\plugins\counterup\README.md" />
+    <Content Include="Content\assets\plugins\owl-carousel\LICENSE" />
+    <Content Include="Content\assets\plugins\owl-carousel\README.md" />
+    <Content Include="Content\assets\plugins\animate\README.md" />
+    <Content Include="libman.json" />
+    <None Include="packages.config" />
+    <Content Include="Views\_Shared\_AdminLayOut.cshtml" />
+    <Content Include="Views\AdminPanel\Index.cshtml" />
+    <Content Include="Views\_Shared\_Header.cshtml" />
+    <Content Include="Views\_Shared\_NavBar.cshtml" />
+    <Content Include="Views\_Shared\_BsModals.cshtml" />
+    <Content Include="Views\_Shared\_SideBar.cshtml" />
+    <Content Include="Views\_Shared\_Footer.cshtml" />
+    <Content Include="Views\Product\GetInventory.cshtml" />
+    <Content Include="Views\Person\Index.cshtml" />
+    <Content Include="Views\_Shared\_VSP.cshtml" />
+    <Content Include="Views\_Shared\_EditProduct.cshtml" />
+    <Content Include="Views\_Shared\_AddSP.cshtml" />
+    <Content Include="Views\_Shared\_GetCategory.cshtml" />
+    <Content Include="Views\_Shared\_GetSubCategory.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\AdminPanel\AddAttrb.cshtml" />
+    <Content Include="Views\_Shared\_DDLView.cshtml" />
+    <Content Include="Views\_Shared\_HomeLayout.cshtml" />
+    <Content Include="Views\_Shared\_HomeNavBar.cshtml" />
+    <Content Include="Views\_Shared\_HomeSlider.cshtml" />
+    <Content Include="Views\_Shared\_SearchLayOut.cshtml" />
+    <Content Include="Views\Home\GetbyDep.cshtml" />
+    <Content Include="Views\Home\GetbyCat.cshtml" />
+    <Content Include="Views\Home\GetbySubCat.cshtml" />
+    <Content Include="Views\_Shared\_ViewProduct.cshtml" />
+    <Content Include="Views\AdminPanel\BulkUpload.cshtml" />
+    <Content Include="Views\_Shared\_HomeSideBar.cshtml" />
+    <Content Include="Views\_Shared\_FeaturedProducts.cshtml" />
+    <Content Include="Views\_Shared\_SaleProducts.cshtml" />
+    <Content Include="Views\_Shared\_DiscountProducts.cshtml" />
+    <Content Include="Views\_Shared\_SearchedProducts.cshtml" />
+    <Content Include="Views\Cart\GotoCart.cshtml" />
+    <Content Include="Views\Cart\UserLogin.cshtml" />
+    <Content Include="Views\Cart\CheckOut.cshtml" />
+    <Content Include="Views\Cart\ThankYouPage.cshtml" />
+    <Content Include="Views\Home\CustomerDashBoard.cshtml" />
+    <Content Include="Views\_Shared\_ThemeLayout.cshtml" />
+    <Content Include="Views\_Shared\_OrderDetail.cshtml" />
+    <Content Include="Views\AdminPanel\ViewOrders.cshtml" />
+    <Content Include="Views\_Shared\_CartCounter.cshtml" />
+    <Content Include="Views\_Shared\_TabProducts.cshtml" />
+    <Content Include="Views\SiteOwner\Index.cshtml" />
+    <Content Include="Views\_Shared\_FooterMenu.cshtml" />
+    <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
+    <Content Include="Views\_Shared\_PrintData.cshtml" />
+    <Content Include="Views\_Shared\_PaidPromotions.cshtml" />
+    <Content Include="Views\_Shared\_SameCategory.cshtml" />
+    <Content Include="Views\_Shared\_PopularProducts.cshtml" />
+    <Content Include="Views\Person\SupplerSettings.cshtml" />
+    <Content Include="Views\Person\ErrorPage.cshtml" />
+    <Content Include="Views\Product\GetInActiveProducts.cshtml" />
+    <Content Include="Views\_Shared\_ShippingAddress.cshtml" />
+    <Content Include="Views\_Shared\_BillingAddress.cshtml" />
+    <Content Include="Views\Home\Privacy.cshtml" />
+    <Content Include="Views\Home\Help.cshtml" />
+    <Content Include="Views\Person\ResetPassword.cshtml" />
+    <Content Include="Views\Person\SupplierSignUp.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Content\assets\Files\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ILibrary\ILibrary.csproj">
+      <Project>{d5e014cb-32eb-4390-bb20-635bacfe8e30}</Project>
+      <Name>ILibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>53317</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:53317/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

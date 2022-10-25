@@ -1,0 +1,73 @@
+﻿@using ILibrary.AdminSide;
+@{ 
+    List<PaidPromotions> promotions = new AdminHelper().GetActivePromotions();
+}
+
+
+
+<div class="c-content-box c-overflow-hide c-bs-grid-reset-space">
+  
+        
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="c-content-product-5">
+                <div class="c-bg-img-center" style="height:800px;background-image: url(@promotions.Where(x=>x.AddVavlue==0).First().ImageUrl">
+                    <div class="c-detail c-bg-dark c-bg-opacity-2">
+                        <a href="@promotions.Where(x=>x.AddVavlue==0).First().Url" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">Shop Now</a>
+                        <h3 class="c-title c-font-uppercase c-font-bold c-font-white c-font-90">@promotions.Where(x => x.AddVavlue == 0).First().Name</h3>
+                        <p class="c-desc c-font-white c-font-17">@promotions.Where(x => x.AddVavlue == 0).First().Description</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <div class="c-content-product-5 c-content-overlay">
+                        <div class="c-overlay-wrapper">
+                            <div class="c-overlay-content">
+                                <h3 class="c-title c-margin-tb-30 c-font-uppercase c-font-bold c-font-30 c-font-white c-padding-20">
+                                    <span class="c-font-thin">@promotions.Where(x => x.AddVavlue == 1).First().Name</span>
+                                    <br />Item
+                                </h3>
+                                <a href="@promotions.Where(x => x.AddVavlue == 1).First().Url" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">Shop Now</a>
+                            </div>
+                        </div>
+                        <div class="c-bg-img-center c-overlay-object" data-height="height" style="height: 400px; background-image: url(@promotions.Where(x => x.AddVavlue == 1).First().ImageUrl);"></div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <div class="c-content-product-5 c-content-overlay">
+                        <div class="c-overlay-wrapper">
+                            <div class="c-overlay-content">
+                                <h3 class="c-title c-margin-tb-30 c-font-uppercase c-font-bold c-font-30 c-font-white c-padding-20">
+                                    <span class="c-font-thin">@promotions.Where(x => x.AddVavlue == 2).First().Name</span>
+                                    <br />Collection
+                                </h3>
+                                <a href="@promotions.Where(x => x.AddVavlue == 2).First().Url" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">Shop Now</a>
+                            </div>
+                        </div>
+                        <div class="c-bg-img-center c-overlay-object" data-height="height" style="height: 400px; background-image: url(@promotions.Where(x => x.AddVavlue == 2).First().ImageUrl);"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="c-content-product-5">
+                        <div class="c-bg-img-center c-center" style="height: 400px; background-image: url(@promotions.Where(x => x.AddVavlue == 3).First().ImageUrl)">
+                            <div class="c-wrapper c-center-vertical">
+                                <h3 class="c-title c-margin-tb-30 c-font-30 c-font-uppercase c-font-bold c-font-white">
+                                    <span class="c-line">
+                                        <span class="c-font-thin">@promotions.Where(x => x.AddVavlue == 3).First().Name</span>
+                                    </span>
+                                </h3>
+                                <a href="@promotions.Where(x => x.AddVavlue == 3).First().Url" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square c-margin-t-20">Shop Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

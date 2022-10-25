@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "BulkUpload";
+    Layout = "~/Views/_Shared/_AdminLayOut.cshtml";
+}
+
+<h2>BulkUpload</h2>
+<p>Upload File for BulkUpload</p>
+<div class="row">
+    <div style="margin:5px;border:1px dotted #808080"  class="col-md-3">
+        <p>Upload the File to Start BulkUpload Procedure. only xlsx file type</p>
+
+        <form class="" action="/AdminPanel/UploadFile/" enctype="multipart/form-data" method="post">
+            <input class="form-control" name="file" id="file" type="file" />
+            <input class="btn btn-danger" type="submit" />
+        </form>
+    </div>
+
+    
+
+    <div style="margin:5px;border:1px dotted #808080" class="col-md-3">
+        <p>Insert into DB</p>
+        <a class="btn btn-danger" href="~/Product/ReadExcel/">Bulk Upload</a>
+    </div>
+
+</div>
+

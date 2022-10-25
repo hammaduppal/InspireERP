@@ -1,0 +1,9 @@
+﻿@{ 
+    List<SelectListItem> sl = ViewBag.category;
+}
+<select id="damage" name="damage" class="form-control">
+    @foreach (var item in sl)
+    {
+        <option>@item.Text</option>
+    }
+</select>

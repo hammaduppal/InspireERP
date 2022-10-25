@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "Inspire Nation Online System";
+    Layout = "~/Views/_Shared/_HomeLayout.cshtml";
+}
+<br />
+@RenderPage("~/Views/_Shared/_PaidPromotions.cshtml")
+
+<!-- BEGIN: CONTENT/SHOPS/SHOP-2-3 -->
+<div class="c-content-box c-size-md c-overflow-hide c-bs-grid-small-space">
+    <div class="container">
+        @RenderPage("~/Views/_Shared/_SaleProducts.cshtml")
+        @RenderPage("~/Views/_Shared/_FeaturedProducts.cshtml")
+        @RenderPage("~/Views/_Shared/_DiscountProducts.cshtml")
+    </div>
+
+</div>
+<!-- END: CONTENT/SHOPS/SHOP-2-3 -->
+@RenderPage("~/Views/_Shared/_TabProducts.cshtml")
+
+@RenderPage("~/Views/_Shared/_PopularProducts.cshtml")
+
+<!-- BEGIN: CONTENT/STEPS/STEPS-3 -->
+<div class="c-content-box c-size-md c-theme-bg">
+    <div class="container">
+        <div class="c-content-step-3 c-font-white">
+            <div class="row">
+                <div class="col-md-4 c-steps-3-block">
+                    <i class="fa fa-truck"></i>
+                    <div class="c-steps-3-title">
+                        <h2 class="c-font-white c-font-uppercase c-font-30 c-font-thin">Free shipping</h2>
+                        <em>Express delivery withing 3 days</em>
+                    </div>
+                    <span>&nbsp;</span>
+                </div>
+                <div class="col-md-4 c-steps-3-block">
+                    <i class="fa fa-gift"></i>
+                    <div class="c-steps-3-title">
+                        <h2 class="c-font-white c-font-uppercase c-font-30 c-font-thin">Daily Gifts</h2>
+                        <em>3 Gifts daily for lucky customers</em>
+                    </div>
+                    <span>&nbsp;</span>
+                </div>
+                @{ 
+                    string number = new ILibrary.AdminSide.AdminHelper().GetSiteConfiguration().CompanyMobile.ToString();
+                }
+                <div class="col-md-4 c-steps-3-block">
+                    <i class="fa fa-phone"></i>
+                    <div class="c-steps-3-title">
+                        <h2 class="c-font-white c-font-uppercase c-font-30 c-font-thin">@number</h2>
+                        <em>24/7 customer care available</em>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: CONTENT/STEPS/STEPS-3 -->
+<!-- BEGIN: CONTENT/SHOPS/SHOP-3-1 -->
+<!-- END: CONTENT/SHOPS/SHOP-3-1 -->

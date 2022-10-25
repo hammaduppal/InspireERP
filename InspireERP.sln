@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InspireERP", "InspireERP\InspireERP.csproj", "{8C06EC1E-DA59-4412-97C7-3780C85E423C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ILibrary", "ILibrary\ILibrary.csproj", "{D5E014CB-32EB-4390-BB20-635BACFE8E30}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8C06EC1E-DA59-4412-97C7-3780C85E423C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C06EC1E-DA59-4412-97C7-3780C85E423C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C06EC1E-DA59-4412-97C7-3780C85E423C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C06EC1E-DA59-4412-97C7-3780C85E423C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5E014CB-32EB-4390-BB20-635BACFE8E30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5E014CB-32EB-4390-BB20-635BACFE8E30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5E014CB-32EB-4390-BB20-635BACFE8E30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5E014CB-32EB-4390-BB20-635BACFE8E30}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {38F7AEF7-0C77-42BC-B114-15C67ECA2D1B}
+	EndGlobalSection
+EndGlobal

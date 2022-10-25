@@ -1,0 +1,176 @@
+﻿@using ILibrary.HRM;
+@using InspireERP.Models;
+@{ 
+    List<SelectListItem> cities = ModelHelper.selectListItem(new HRHandler().GetCity());
+    List<SelectListItem> countries = ModelHelper.selectListItem(new HRHandler().GetCountry());
+
+}
+<!-- Large modal -->
+
+<div id="largeModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            ...
+        </div>
+    </div>
+</div>
+
+<!-- Small modal -->
+<!-- BEGIN: CONTENT/USER/FORGET-PASSWORD-FORM -->
+<div class="modal fade c-content-login-form" id="forget-password-form" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content c-square">    
+            <div class="modal-header c-no-border">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="c-font-24 c-font-sbold">Password Recovery</h3>
+                <p>To recover your password please fill in your email address</p>
+                <form action="/Person/ResetRequest/" method="post">
+                    <div class="form-group">
+                        <label for="forget-email" class="hide">Email</label>
+                        <input  required  type="email" class="form-control input-lg c-square" id="ForGetEmail" name="ForGetEmail" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login">Submit</button>
+                        <a href="javascript:;" class="c-btn-forgot" data-toggle="modal" data-target="#login-form" data-dismiss="modal">Back To Login</a>
+                    </div>
+                </form>
+            </div>
+            <script type="text/javascript">
+            </script>
+            <div class="modal-footer c-no-border">
+                <span class="c-text-account">Don't Have An Account Yet ?</span>
+                <a href="javascript:;" data-toggle="modal" data-target="#signup-form" data-dismiss="modal" class="btn c-btn-dark-1 btn c-btn-uppercase c-btn-bold c-btn-slim c-btn-border-2x c-btn-square c-btn-signup">Signup!</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: CONTENT/USER/FORGET-PASSWORD-FORM -->
+<!-- BEGIN: CONTENT/USER/SIGNUP-FORM -->
+<div class="modal fade c-content-login-form" id="signup-form" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content c-square">
+            <div class="modal-header c-no-border">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="c-font-24 c-font-sbold">Create An Account</h3>
+                <p>Please fill in below form to create an account with us</p>
+                <form action="/Person/RegisterUser/" class="c-form-register c-margin-t-20">
+                    <div class="form-group">
+                        <label class="control-label">Country</label>
+                        <select name="country" class="form-control c-square c-theme">
+                            @foreach (var item in countries)
+                            {
+                                <option value="@item.Value">@item.Text</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label">First Name</label>
+                                <input required name="firstName" type="text" class="form-control c-square c-theme" placeholder="First Name">
+                            </div>
+                            <div class="col-md-6">
+                                <label  class="control-label">Last Name</label>
+                                <input required name="lastName" type="text" class="form-control c-square c-theme" placeholder="Last Name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Address</label>
+                        <input required name="stAddress" type="text" class="form-control c-square c-theme" placeholder="Street Address">
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Town / City</label>
+                            <select required name="city" class="form-control c-square c-theme">
+                                <option value="0">Select an option...</option>
+                                @foreach (var item in cities)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div id="message"></div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Email Address</label>
+                            <input id="signupEmail" required name="email" type="email" class="form-control c-square c-theme" placeholder="Email Address">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="">Mobile Format : 3001234567</label>
+                            <input id="signupMobile" required name="mobile" type="tel" class="form-control c-square c-theme" placeholder="3001234567" pattern="[0-3]{3}[0-9]{7}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Account Password</label>
+                        <input required name="password" type="password" class="form-control c-square c-theme" placeholder="Password">
+                    </div>
+                    <div class="form-group c-margin-t-40">
+                        <button disabled id="signUpSubmit" type="submit" class="btn btn-lg c-theme-btn c-btn-square c-btn-uppercase c-btn-bold">Register</button>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: CONTENT/USER/SIGNUP-FORM -->
+<!-- BEGIN: CONTENT/USER/LOGIN-FORM -->
+<div class="modal fade c-content-login-form" id="login-form" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content c-square">
+            <div class="modal-header c-no-border">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="c-font-24 c-font-sbold">Good Day!</h3>
+                <p>Let's make today a great day!</p>
+                <form action="/Person/GetLogin">
+                    <div class="form-group">
+                        <label for="login-email" class="hide">Email</label>
+                        <input required name="email" type="email" class="form-control input-lg c-square" id="login-email" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password" class="hide">Password</label>
+                        <input required name="password" type="password" class="form-control input-lg c-square" id="login-password" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <div class="c-checkbox">
+                            <input type="checkbox" id="login-rememberme" class="c-check">
+                            <label for="login-rememberme" class="c-font-thin c-font-17">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> Remember Me
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login">Login</button>
+                        <a href="javascript:;" data-toggle="modal" data-target="#forget-password-form" data-dismiss="modal" class="c-btn-forgot">Forgot Your Password ?</a>
+                    </div>
+                    
+                </form>
+            </div>
+            <div class="modal-footer c-no-border">
+                <span class="c-text-account">Don't Have An Account Yet ?</span>
+                <a href="javascript:;" data-toggle="modal" data-target="#signup-form" data-dismiss="modal" class="btn c-btn-dark-1 btn c-btn-uppercase c-btn-bold c-btn-slim c-btn-border-2x c-btn-square c-btn-signup">Signup!</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: CONTENT/USER/LOGIN-FORM -->

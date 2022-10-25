@@ -1,0 +1,352 @@
+﻿@using ILibrary.HRM;
+@using ILibrary.SaleManager;
+@{
+    ViewBag.Title = "CustomerDashBoard";
+    Layout = "~/Views/_Shared/_ThemeLayout.cshtml";
+    Customer c = ViewBag.Customer;
+    List<OrderMaster> om = ViewBag.ListofOrders;
+    List<SelectListItem> countries = ViewBag.Countries;
+}
+
+
+
+<div class="c-body"> 
+    <div class="c-content-tab-1">
+        <div class="row">
+            <div class="col-md-3 col-sm-12 col-xs-12">
+                <ul class="nav nav-tabs tabs-left c-font-uppercase c-font-bold">
+                    <li class="active">
+                        <a href="#tab_16_1" data-toggle="tab" aria-expanded="true">My DashBoard</a>
+                    </li>
+                    <li>
+                        <a href="#tab_16_2" data-toggle="tab">Profile</a>
+                    </li>
+                    <li class="">
+                        <a href="#tab_16_3" data-toggle="tab" > Order History </a>
+                    </li>
+                    <li>
+                        <a href="#tab_16_4" data-toggle="tab"> My Addresses </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-9 col-sm-12 col-xs-12">
+                <div class="tab-content c-padding-sm">
+                    <div class="tab-pane active" id="tab_16_1">
+                        <div class="c-content-title-1">
+                            <h3 class="c-font-uppercase c-font-bold">My Dashboard</h3>
+                            <div class="c-line-left"></div>
+                            <p class="">
+                                Hello
+                                <a href="#" class="c-theme-link">@c.Person.FirstName , @c.Person.LastName</a> (not
+                                <a href="#" class="c-theme-link">@c.Person.FirstName</a>?
+                                <a href="/Person/LogOut" class="c-theme-link">Sign out</a>).
+                                <br />
+                            </p>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-12 c-margin-b-20">
+                                <h3 class="c-font-uppercase c-font-bold">@c.Person.FirstName</h3>
+                                <ul class="list-unstyled">
+                                    <li>c.Person.StretAddress.StAddress</li>
+                                    <li>Phone: @c.Person.MobileNumber</li>
+                                    <li>Other: @c.Person.MobileNumber</li>
+                                    <li>
+                                        Email:
+                                        <a href="mailto:@c.Person.Email" class="c-theme-link">My Email</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="tab_16_2">
+                        <div class="c-layout-sidebar-content ">
+                            <!-- BEGIN: PAGE CONTENT -->
+                            <div class="c-content-title-1">
+                                <h3 class="c-font-uppercase c-font-bold">Edit Profile</h3>
+                                <div class="c-line-left"></div>
+                            </div>
+                            <form action="/Person/UpdateCustomer/" class="c-shop-form-1">
+                                <!-- BEGIN: ADDRESS FORM -->
+                                <div class="">
+                                    <input name="id" id="id" type="text" hidden value="@c.Id" />
+                                    <!-- BEGIN: BILLING ADDRESS -->
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label class="control-label">First Name</label>
+                                                    <input name="firstName", id="firstName" type="text" value="@c.Person.FirstName" class="form-control c-square c-theme" placeholder="First Name">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="control-label">Last Name</label>
+                                                    <input name="lastName", id="lastName" type="text" value="@c.Person.LastName" class="form-control c-square c-theme" placeholder="Last Name">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label class="control-label">Email Address</label>
+                                            <input name="email" id="email" type="email" value="@c.Person.Email" class="form-control c-square c-theme" placeholder="Email Address">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="control-label">Phone</label>
+                                            <input name="mobile" id="mobile" value="@c.Person.MobileNumber" type="tel" class="form-control c-square c-theme" placeholder="Phone">
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- END: BILLING ADDRESS -->
+                                    <!-- BEGIN: PASSWORD -->
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label class="control-label">Change Password</label>
+                                            <input name="password" id="password" type="password" value="@c.LoginUsers.Password" class="form-control c-square c-theme" placeholder="Password">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label class="control-label">Repeat Password</label>
+                                            <input id="password2" type="password" value="@c.LoginUsers.Password" class="form-control c-square c-theme" placeholder="Password">
+                                            <p class="help-block">
+                                                Hint: The password should be at least six characters long.
+                                                <br /> To make it stronger, use upper and lower case letters, numbers, and symbols like ! " ? $ % ^ & ).
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- END: PASSWORD -->
+                                    <div class="row c-margin-t-30">
+                                        <div class="form-group col-md-12" role="group">
+                                            <button id="profileSubmit" type="submit" class="btn btn-lg c-theme-btn c-btn-square c-btn-uppercase c-btn-bold">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END: ADDRESS FORM -->
+                            </form>
+                            <!-- END: PAGE CONTENT -->
+                        </div>
+                    </div>
+                   
+                    <div class="tab-pane fade" id="tab_16_3">
+                        @if (om != null)
+                        {
+
+                            <div class="c-layout-sidebar-content ">
+
+                                <div class="c-content-title-1">
+                                    <h3 class="c-font-uppercase c-font-bold">Order History</h3>
+                                </div>
+
+                                <table class="table table-bordered table-condensed table-hover">
+                                    <thead>
+                                        <tr>
+                                            <td>
+                                                OrderNumber
+                                            </td>
+                                            <td>
+                                                Order Status
+                                            </td>
+                                            <td>
+                                                Total Price
+                                            </td>
+                                            <td>
+                                                Payment Method
+                                            </td>
+                                            <td>
+                                                Date / Time
+                                            </td>
+                                            <td>Order Note</td>
+                                            <td>
+                                                View Detail
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in om)
+                                        {
+                                            if (item.Status == OrderMaster.OrderStatus.OrderRejected)
+                                            {
+                                                <tr style="background-color:#a9a5a5;" class="">
+                                                    <td class="">
+                                                        @item.Id
+                                                    </td>
+                                                    <td>
+                                                        @item.Status
+                                                    </td>
+                                                    <td>
+                                                        @item.GrandTotal
+                                                    </td>
+                                                    <td>
+                                                        Cash on Delivery
+                                                    </td>
+                                                    <td>
+                                                        @item.OrderDateTime
+                                                    </td>
+                                                    <td>@item.OrderNote</td>
+                                                    <td>
+                                                        <a data-nuke="@item.Id" class="" href="#">See Details</a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @item.Id
+                                                    </td>
+                                                    <td>
+                                                        @item.Status
+                                                    </td>
+                                                    <td>
+                                                        @item.GrandTotal
+                                                    </td>
+                                                    <td>
+                                                        Cash on Delivery
+                                                    </td>
+                                                    <td>
+                                                        @item.OrderDateTime
+                                                    </td>
+                                                    <td>@item.OrderNote</td>
+                                                    <td>
+                                                        <a data-nuke="@item.Id" class="orderdetail" href="#">See Details</a>
+                                                    </td>
+                                                </tr>
+
+                                            }
+
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                        else
+                        {
+                            <span>No Order</span>
+                        }
+                    </div>
+                    
+                   
+
+
+
+
+
+
+
+                    <div class="tab-pane fade" id="tab_16_4">
+                        <div class="c-layout-sidebar-content ">
+                            <!-- BEGIN: PAGE CONTENT -->
+                            <!-- BEGIN: CONTENT/SHOPS/SHOP-MY-ADDRESSES-1 -->
+                            <div class="c-content-title-1">
+                                <h3 class="c-font-uppercase c-font-bold">My Addresses</h3>
+                                <div class="c-line-left"></div>
+                            </div>
+                            <div class="row c-margin-t-25">
+                                <div class="col-md-4 col-sm-4 col-xs-12 c-margin-b-20 c-margin-t-10">The following addresses will be used on the checkout page by default.</div>
+
+                                @foreach (var item in c.Person.StretAddress)
+                                {
+                                    if (item.AddressType == AddressType.Billing)
+                                    {
+                                        <div class="col-md-4 col-sm-4 col-xs-12 c-margin-b-20">
+                                            <h3 class="c-font-uppercase c-font-bold">Billing Address</h3>
+                                            <ul class="list-unstyled">
+                                                <li>@c.Person.FirstName @c.Person.LastName</li>
+                                                <li>@item.StAddress, @item.City.Name,@item.City.Country.Name</li>
+                                                <li>Phone: @c.Person.MobileNumber</li>
+                                            </ul>
+                                            <a id="editBilling" href="#" class="btn c-theme-btn btn-xs">
+                                                <i class="fa fa-edit"></i> Edit
+                                            </a>
+                                        </div>
+                                    }
+                                    else if (item.AddressType == AddressType.Shipping)
+                                    {
+                                        <div class="col-md-4 col-sm-4 col-xs-12 c-margin-b-20">
+                                            <h3 class="c-font-uppercase c-font-bold">Shipping Address</h3>
+                                            <ul class="list-unstyled">
+                                                <li>@c.Person.FirstName @c.Person.LastName</li>
+                                                <li>@item.StAddress, @item.City.Name,@item.City.Country.Name</li>
+                                                <li>Phone: @c.Person.MobileNumber</li>
+                                            </ul>
+                                            <a id="editShipping" href="#" class="btn c-theme-btn btn-xs">
+                                                <i class="fa fa-edit"></i> Edit
+                                            </a>
+                                        </div>
+                                    }
+                                }
+
+
+
+                            </div>
+                            <!-- END: CONTENT/SHOPS/SHOP-MY-ADDRESSES-1 -->
+                            <!-- END: PAGE CONTENT -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                  
+
+
+
+
+
+
+
+@section ThemeScript{
+    <script type="text/javascript">
+        $('#editShipping').click(function () {
+            $.ajax({ url: "/Person/GetAddressShipping/", method: "GET" }).done(function (result) {
+
+                $('.modal-content').html(result);
+                $('.bd-example-modal-lg').modal();
+            });
+
+        });
+        $('#editBilling').click(function () {
+            $.ajax({ url: "/Person/GetAddressBilling/", method: "GET" }).done(function (result) {
+
+                $('.modal-content').html(result);
+                $('.bd-example-modal-lg').modal();
+            });
+
+        });
+        $('#password,#password2').keyup(function () {
+
+            var p1 = $('#password').val();
+            var p2 = $('#password2').val();
+            console.log(p1 + " " + p2);
+            if (p1 == p2) {
+                $('#profileSubmit').removeAttr("disabled");
+            }
+            else {
+                $('#profileSubmit').attr("disabled", "disabled");
+
+            }
+
+        });
+       
+
+        $('.orderdetail').click(function () {
+            let Id = $(this).data('nuke');
+            $.ajax({ url: "/Home/GetSingleOrder/" + Id, method: "GET" }).done(function (result) {
+                $('.modal-content').html(result);
+                $('.bd-example-modal-lg').modal();
+            });
+        });
+    </script>
+    }
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,93 @@
+﻿@using ILibrary.Production;
+@using ILibrary.AdminSide;
+@{ 
+    SiteConfiguration s = new AdminHelper().GetSiteConfiguration();
+    string[] tags = s.tabtags.Split('|');
+    List<Product> p = new ProductHandler().TakeTwenty(tags[0], tags[1], tags[2], tags[3]);
+}
+
+<!-- BEGIN: CONTENT/SHOPS/SHOP-1-2 -->
+<div class="c-content-box c-size-md">
+    <div class="container">
+        <div class="c-content-tab-5 c-theme">
+            <!-- Nav tabs -->
+           
+            <ul class="nav nav-pills c-nav-tab c-arrow" role="tablist">
+                <li role="presentation" class="active">
+                    <a class="c-font-uppercase" href="#@p.First().SubCategory.Category.Department.Name" aria-controls="@p.First().SubCategory.Category.Department.Name" role="tab" data-toggle="tab">@p.First().SubCategory.Category.Department.Name</a>
+                </li>
+                @{
+                    string name = p.First().SubCategory.Category.Department.Name;
+                }
+                @foreach (var item in p.Select(x => x.SubCategory.Category.Department).Distinct())
+                {
+                    if (item.Name != name)
+                    {
+                        <li role="presentation">
+                            <a class="c-font-uppercase" href="#@item.Name" aria-controls="@item.Name" role="tab" data-toggle="tab">@item.Name</a>
+                        </li>
+                    }
+
+                }
+
+
+              
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="@p.First().SubCategory.Category.Department.Name">
+                    <div class="row">
+                        @foreach (var item in p.Where(x => x.SubCategory.Category.Department.Name == name))
+                        {
+                            <div class="col-sm-4">
+                                <div class="c-content c-content-overlay">
+                                    <div class="c-overlay-wrapper c-overlay-padding">
+                                        <div class="c-overlay-content">
+                                            <a href="/Home/GetProduct/@item.Id" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">Explore</a>
+                                        </div>
+                                    </div>
+                                    <div class="c-bg-img-center c-overlay-object" data-height="height" style="height: 270px; background-image: url(@item.Images.First().URL);"></div>
+                                    <div class="c-overlay-border"></div>
+                                </div>
+                            </div>
+
+                        }
+
+
+                    </div>
+                </div>
+                @foreach (var item in p.Select(x=>x.SubCategory.Category.Department).Distinct())
+                {
+                    if (item.Name != name)
+                    {
+                        <div role="tabpanel" class="tab-pane fade" id="@item.Name">
+                            <div class="row">
+                                @foreach (var pr in p)
+                                {
+                                    if (pr.SubCategory.Category.Department.Name == item.Name)
+                                    {
+                                        <div class="col-sm-4">
+                                            <div class="c-content c-content-overlay">
+                                                <div class="c-overlay-wrapper c-overlay-padding">
+                                                    <div class="c-overlay-content">
+                                                        <a href="/Home/GetProduct/@pr.Id" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">Explore</a>
+                                                    </div>
+                                                </div>
+                                                <div class="c-bg-img-center c-overlay-object" data-height="height" style="height: 270px; background-image: url(@pr.Images.First().URL);"></div>
+                                                <div class="c-overlay-border"></div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                
+                            </div>
+                        </div>
+                    }
+                }
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: CONTENT/SHOPS/SHOP-1-2 -->

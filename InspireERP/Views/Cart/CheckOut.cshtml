@@ -1,0 +1,208 @@
+﻿@using ILibrary.HRM;
+@using InspireERP.Models;
+@{
+    ViewBag.Title = "CheckOut";
+    Layout = "~/Views/_Shared/_ThemeLayout.cshtml";
+    List<Country> countries = new HRHandler().GetCountry();// ViewBag.Countries;
+    LoginUsers login = (LoginUsers)Session[WebUtil.User];
+    Customer c = ViewBag.Customer;
+    List<AddtoCartModel> cartModels = ViewBag.CartItems;
+    int gtotal = 0;
+    int deliverycharges = 0;
+}
+
+<!-- BEGIN: PAGE CONTENT -->
+<div class="c-content-box c-size-lg">
+    <div class="container">
+        <div class="row">
+            <!-- BEGIN: ADDRESS FORM -->
+            <div class="col-md-7 c-padding-20">
+                <!-- BEGIN: BILLING ADDRESS -->
+                <h3 class="c-font-bold c-font-uppercase c-font-24">Billing Address</h3>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Country</label>
+                        <select disabled class="form-control c-square c-theme">
+                            @foreach (var item in countries)
+                            {
+                                <option>@item.Name</option>
+                            }
+
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="control-label">First Name</label>
+                                <input disabled type="text" class="form-control c-square c-theme" value="@c.Person.FirstName" placeholder="First Name">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="control-label">Last Name</label>
+                                <input type="text" disabled value="@c.Person.LastName" class="form-control c-square c-theme" placeholder="Last Name">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Address</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <input disabled value="@c.Person.StretAddress.First().StAddress" type="text" class="form-control c-square c-theme" placeholder="Apartment, suite, unit etc. (optional)">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Town / City</label>
+                        <input disabled value="@c.Person.StretAddress.First().City.Name" type="text" class="form-control c-square c-theme" placeholder="Town / City">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="control-label">Email Address</label>
+                                <input disabled value="@c.Person.Email" type="email" class="form-control c-square c-theme" placeholder="Email Address">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="control-label">Phone</label>
+                                <input disabled value="@c.Person.MobileNumber" type="tel" class="form-control c-square c-theme" placeholder="Phone">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- BILLING ADDRESS -->
+                <!-- SHIPPING ADDRESS -->
+                <h3 class="c-font-bold c-font-uppercase c-font-24">Shipping Address</h3>
+
+
+                <!-- SHIPPING ADDRESS -->
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Order Notes</label>
+                        <textarea id="orderNotes" class="form-control c-square c-theme" rows="3" placeholder="Note about your order, e.g. special notes for delivery."></textarea>
+                    </div>
+                </div>
+            </div>
+            <!-- END: ADDRESS FORM -->
+            <!-- BEGIN: ORDER FORM -->
+            <div class="col-md-5">
+                <div class="c-content-bar-1 c-align-left c-bordered c-theme-border c-shadow">
+                    <h1 class="c-font-bold c-font-uppercase c-font-24">Your Order</h1>
+                    <ul class="c-order list-unstyled">
+                        <li class="row c-margin-b-15">
+                            <div class="col-md-6 c-font-20">
+                                <h2>Product</h2>
+                            </div>
+                            <div class="col-md-6 c-font-20">
+                                <h2>Total</h2>
+                            </div>
+                        </li>
+                        <li class="row c-border-bottom"></li>
+                        @foreach (var item in cartModels)
+                        {
+                            <li class="row c-margin-b-15 c-margin-t-15">
+                                <div class="col-md-6 c-font-20">
+                                    <a href="shop-product-details.html" class="c-theme-link">@item.Name x @item.Qty</a>
+                                </div>
+                                <div class="col-md-6 c-font-20">
+                                    <p class="">@item.Total</p>
+                                </div>
+                            </li>
+                        }
+
+
+                        <li class="row c-margin-b-15 c-margin-t-15">
+                            <div class="col-md-6 c-font-20">Subtotal</div>
+                            <div class="col-md-6 c-font-20">
+                                @if (cartModels != null)
+                                {
+                                    foreach (var item in cartModels)
+                                    {
+                                        gtotal = gtotal + item.Total;
+                                    }
+                                }
+                                <p class="">
+                                    PKR :&nbsp;
+                                    <span class="c-subtotal">@gtotal</span>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="row c-border-top c-margin-b-15"></li>
+                     
+                        <li class="row">
+                            <div class="col-md-6 c-font-20">Shipping</div>
+                            <div class="col-md-6">
+                                <div class="c-radio-list c-shipping-calculator" data-name="shipping_price" data-subtotal-selector="c-subtotal" data-total-selector="c-shipping-total">
+                                    <div class="c-radio">
+                                      
+                                        @foreach (var item in cartModels)
+                                        {
+                                           deliverycharges = deliverycharges + item.DeliveryCharges;
+                                        }
+                                        <p class="c-shipping-price c-font-bold c-font-20">@deliverycharges</p>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </li>
+                      
+                        <li class="row c-margin-b-15 c-margin-t-15">
+                            <div class="col-md-6 c-font-20">
+                                <p class="c-font-30">Total</p>
+                            </div>
+                            <div class="col-md-6 c-font-20">
+                                <p class="c-font-bold c-font-30">
+                                    PKR :
+                                    @{
+                                        int final = gtotal + deliverycharges;
+                                    }
+                                    <span class="c-shipping-total">@final</span>
+                                </p>
+                            </div>
+                        </li>
+
+                        
+                        <li class="row">
+                            <div class="form-group col-md-12" role="group">
+                                <a href="#" id="orderSubmit" class="btn btn-lg c-theme-btn c-btn-square c-btn-uppercase c-btn-bold">Submit</a>
+                                <button type="submit" class="btn btn-lg btn-default c-btn-square c-btn-uppercase c-btn-bold">Cancel</button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- END: ORDER FORM -->
+        </div>
+
+    </div>
+</div>
+<!-- END: PAGE CONTENT -->
+@section ThemeScript{
+    <script type="text/javascript">
+        $('#orderSubmit').click(function () {
+            let name = $('#orderNotes').val();
+            $.ajax({ url: "/Cart/ConfirmOrder/?name=" + name, method: "GET" }).done(function () {
+                window.location.href = "/Cart/ThankyouPage/";
+            });
+        });
+
+    </script>
+
+}

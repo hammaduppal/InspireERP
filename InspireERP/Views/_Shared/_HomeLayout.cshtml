@@ -1,0 +1,77 @@
+﻿
+<!DOCTYPE html>
+
+<html lang="en">
+
+@RenderPage("~/Views/_Shared/_Header.cshtml")
+
+<body  class="c-layout-header-fixed c-layout-header-6-topbar">
+    @RenderPage("~/Views/_Shared/_HomeNavBar.cshtml")
+    @RenderPage("~/Views/_Shared/_BsModals.cshtml")
+    <!-- BEGIN: PAGE CONTAINER -->
+    <div class="c-layout-page">
+        @RenderPage("~/Views/_Shared/_HomeSlider.cshtml")
+        <div class="row">
+            @RenderBody()
+        </div>
+    </div>
+    <!-- END: PAGE CONTAINER -->
+    <!-- BEGIN: LAYOUT/FOOTERS/FOOTER-7 -->
+    @RenderPage("~/Views/_Shared/_FooterMenu.cshtml");
+    <!-- BEGIN: LAYOUT/FOOTERS/GO2TOP -->
+    <div class="c-layout-go2top">
+        <i class="icon-arrow-up"></i>
+    </div>
+    <!-- END: LAYOUT/FOOTERS/GO2TOP -->
+    <!-- BEGIN: LAYOUT/BASE/BOTTOM -->
+    <!-- BEGIN: CORE PLUGINS -->
+    <!--[if lt IE 9]>
+    @RenderPage("~/Views/_Shared/_Footer.cshtml")
+            @RenderSection("HomeScript",false)
+
+        <!-- END: LAYOUT/BASE/BOTTOM -->
+    <script type="text/javascript">$(document).ready(function () {
+        $('.dropdown-submenu a.test').on("click", function (e) {
+            $(this).next('ul').toggle();
+            e.stopPropagation();
+            e.preventDefault();
+        });
+    $('#signupEmail').focusout(function () {
+
+        var email = $(this).val();
+        $.ajax({ url: "/Person/CheckEmail/?email="+email, method: "GET"}).done(function (result) {
+            if (result == 'true') {
+                $('#signUpSubmit').attr("disabled", "disabled");
+                $('#message').html('This Email is Already Registered with Us. Want to <a href="/Person/GetLogin/"> Login</a>?');
+
+            }
+            else if (result == 'false') {
+                $('#signUpSubmit').removeAttr('disabled');
+                $('#message').html('Email Available');
+            }
+        });
+
+    });
+    $('#signupMobile').focusout(function () {
+
+        var mobile = $(this).val();
+        $.ajax({ url: "/Person/CheckMobile/?mobile=" + mobile, method: "GET" }).done(function (result) {
+            if (result == 'true') {
+                $('#signUpSubmit').attr("disabled", "disabled");
+                $('#message').html('This Mobile Number is Already Registered with Us. Want to <a href="/Person/GetLogin/"> Login</a>?');
+
+            }
+            else if (result == 'false') {
+                $('#signUpSubmit').removeAttr('disabled');
+                $('#message').html('');
+            }
+        });
+
+    });
+
+
+
+});
+    </script>
+</body>
+</html>

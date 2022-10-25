@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+
+@RenderPage("~/Views/_Shared/_Header.cshtml")
+
+<body class="c-layout-header-fixed c-layout-header-mobile-fixed c-layout-header-topbar c-layout-header-topbar-collapse">
+    @RenderPage("~/Views/_Shared/_NavBar.cshtml")
+    @RenderPage("~/Views/_Shared/_BsModals.cshtml")
+    <!-- BEGIN: PAGE CONTAINER -->
+    <div class="c-layout-page">
+        <div class="row">
+            <div class="col-md-2 hidden-xs hidden-md">
+                @RenderPage("~/Views/_Shared/_SideBar.cshtml")
+            </div>
+            <div class="col-md-10">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <!-- END: PAGE CONTAINER -->
+    <!-- BEGIN: LAYOUT/FOOTERS/FOOTER-6 -->
+    <footer class="c-layout-footer c-layout-footer-6 c-bg-grey-1">
+        <div class="container">
+            <div class="c-prefooter c-bg-white">
+              
+                <div class="c-foot">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="c-content-title-1 c-title-md">
+                                <h3 class="c-font-uppercase c-font-bold">
+                                    About
+                                    <span class="c-theme-font">Inspire Nation</span>
+                                </h3>
+                                <div class="c-line-left hide"></div>
+                            </div>
+                            <p class="c-text c-font-16 c-font-regular">To Become Pioneer E-Commerece in Pakistan</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    </footer>
+    <!-- END: LAYOUT/FOOTERS/FOOTER-6 -->
+    <!-- BEGIN: LAYOUT/FOOTERS/GO2TOP -->
+   
+    <!-- END: LAYOUT/FOOTERS/GO2TOP -->
+    <!-- BEGIN: LAYOUT/BASE/BOTTOM -->
+    <!-- BEGIN: CORE PLUGINS -->
+    <!--[if lt IE 9]>
+    @RenderPage("~/Views/_Shared/_Footer.cshtml")
+           @RenderSection("myScript", false)
+        <!-- END: LAYOUT/BASE/BOTTOM -->
+</body>
+</html>

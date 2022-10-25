@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_Shared/_AdminLayOut.cshtml";
+    int orderCount = ViewBag.OrderCount;
+    int productCount = ViewBag.ProductCount;
+    int MyProducts = ViewBag.YourProducts;
+
+    int CustomerCount = ViewBag.TotalCustomers;
+}
+
+
+
+    <!-- BEGIN: PAGE CONTAINER -->
+    <div class="c-layout-page">
+        <!-- BEGIN: LAYOUT/BREADCRUMBS/BREADCRUMBS-1 -->
+        <!-- END: LAYOUT/BREADCRUMBS/BREADCRUMBS-1 -->
+        <!-- BEGIN: PAGE CONTENT -->
+        <!-- BEGIN: CONTENT/STATS/COUNTER-1 -->
+        <div class="c-content-box c-size-md c-bg-white">
+            <div class="container">
+                <div class="c-content-counter-1 c-opt-1">
+                    <div class="c-content-title-1">
+                        <h3 class="c-center c-font-uppercase c-font-bold">We never stop improving</h3>
+                        <div class="c-line-center"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="c-counter c-theme-border c-font-bold c-theme-font" data-counter="counterup">@orderCount</div>
+                            <h4 class="c-title c-first c-font-uppercase c-font-bold">Total Orders</h4>
+                            <p class="c-content">Total Orders You Recieved</p>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="c-counter c-theme-border c-font-bold c-theme-font" data-counter="counterup">@productCount</div>
+                            <h4 class="c-title c-font-uppercase c-font-bold">Total Active Products</h4>
+                            <p class="c-content">Add more products for your customers</p>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="c-counter c-theme-border c-font-bold c-theme-font" data-counter="counterup">@CustomerCount</div>
+                            <h4 class="c-title c-font-uppercase c-font-bold">Total Customers</h4>
+                            <p class="c-content">Join the community of over @CustomerCount Customers.</p>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="c-counter c-theme-border c-font-bold c-theme-font" data-counter="counterup">@MyProducts</div>
+                            <h4 class="c-title c-font-uppercase c-font-bold">Your Total Products</h4>
+                            <p class="c-content">Your have Total: @CustomerCount  Active Products </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END: CONTENT/STATS/COUNTER-1 -->
+        <!-- END: PAGE CONTENT -->
+    </div>
+    <!-- END: PAGE CONTAINER -->
+

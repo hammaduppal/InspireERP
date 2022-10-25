@@ -1,0 +1,166 @@
+﻿ @using InspireERP.Models;
+@{
+    ViewBag.Title = "GotoCart";
+    Layout = "~/Views/_Shared/_ThemeLayout.cshtml";
+    List<AddtoCartModel> cartModels = ViewBag.CartItem;
+    int gtotal = 0;
+    int deliverycharges = 0;
+}
+
+<div class="c-content-box c-size-lg">
+    @if (cartModels != null&&cartModels.Count!=0)
+    {
+    <div class="container">
+        <div class="c-shop-cart-page-1">
+            <div class="row c-cart-table-title">
+                <div class="col-md-2 c-cart-image">
+                    <h3 class="c-font-uppercase c-font-bold c-font-16 c-font-grey-2">Image</h3>
+                </div>
+                <div class="col-md-4 c-cart-desc">
+                    <h3 class="c-font-uppercase c-font-bold c-font-16 c-font-grey-2">Description</h3>
+                </div>  
+                <div class="col-md-1 c-cart-ref">
+                    <h3 class="c-font-uppercase c-font-bold c-font-16 c-font-grey-2">SKU</h3>
+                </div>
+               
+                <div class="col-md-2 c-cart-price">
+                    <h3 class="c-font-uppercase c-font-bold c-font-16 c-font-grey-2">Unit Price</h3>
+                </div>
+                <div class="col-md-1 c-cart-total">
+                    <h3 class="c-font-uppercase c-font-bold c-font-16 c-font-grey-2">Total</h3>
+                </div>
+                <div class="col-md-1 c-cart-remove"></div>
+            </div>
+            <!-- BEGIN: SHOPPING CART ITEM ROW -->
+            @foreach (var item in cartModels)
+            {
+                <div class="row c-cart-table-row">
+                    <h2 class="c-font-uppercase c-font-bold c-theme-bg c-font-white c-cart-item-title c-cart-item-first">Item 1</h2>
+                    <div class="col-md-2 col-sm-3 col-xs-5 c-cart-image">
+                        <img src="@item.URL" />
+                    </div>
+                    <div class="col-md-4 col-sm-9 col-xs-7 c-cart-desc">
+                        <h3>
+                            <a href="/Home/GetProduct/@item.PId" class="c-font-bold c-theme-link c-font-22 c-font-dark">@item.Name</a>
+                        </h3>
+                        <p>Color: Blue</p>
+                        <p>Size: S</p>
+                    </div>
+                    <div class="col-md-1 col-sm-3 col-xs-6 c-cart-ref">
+                        <p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">SKU</p>
+                        <p>120715</p>
+                    </div>
+                  
+                    <div class="col-md-2 col-sm-3 col-xs-6 c-cart-price">
+                        <p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Unit Price</p>
+                        <p class="c-cart-price c-font-bold">@item.Price</p>
+                    </div>
+                    <div class="col-md-1 col-sm-3 col-xs-6 c-cart-total">
+                        <p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Total</p>
+                        <p class="c-cart-price c-font-bold">@item.Total</p>
+                    </div>
+                    <div class="col-md-1 col-sm-12 c-cart-remove">
+                        <a href="/Cart/RemoveItem/@item.PId/" class="c-theme-link c-cart-remove-desktop">×</a>
+                        <a href="#" class="c-cart-remove-mobile btn c-btn c-btn-md c-btn-square c-btn-red c-btn-border-1x c-font-uppercase">Remove item from Cart</a>
+                    </div>
+                </div>
+           
+
+            <!-- END: SHOPPING CART ITEM ROW -->
+            
+            <!-- BEGIN: SUBTOTAL ITEM ROW -->
+            <div class="row">
+                <div class="c-cart-subtotal-row c-margin-t-20">
+                    <div class="col-md-2 col-md-offset-9 col-sm-6 col-xs-6 c-cart-subtotal-border">
+                        <h3 class="c-font-uppercase c-font-bold c-right c-font-16 c-font-grey-2">Subtotal</h3>
+                    </div>
+                    <div class="col-md-1 col-sm-6 col-xs-6 c-cart-subtotal-border">
+                        @{
+                            gtotal = gtotal + item.Total;
+                        }
+
+
+
+
+
+
+                        <h3 class="c-font-bold c-font-16">@gtotal</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- END: SUBTOTAL ITEM ROW -->
+            <!-- BEGIN: SUBTOTAL ITEM ROW -->
+            <div class="row">
+                <div class="c-cart-subtotal-row">
+                    <div class="col-md-2 col-md-offset-9 col-sm-6 col-xs-6 c-cart-subtotal-border">
+                        <h3 class="c-font-uppercase c-font-bold c-right c-font-16 c-font-grey-2">Shipping Fee</h3>
+                    </div>
+                    <div class="col-md-1 col-sm-6 col-xs-6 c-cart-subtotal-border">
+                        <h3 class="c-font-bold c-font-16">
+                        @{ 
+                            
+                             deliverycharges = deliverycharges+item.DeliveryCharges ;
+                        }
+                        @deliverycharges</h3>
+                    </div>
+                </div>
+            </div>
+             }
+            
+    
+    
+    
+    
+    <!-- END: SUBTOTAL ITEM ROW -->
+            <!-- BEGIN: SUBTOTAL ITEM ROW -->
+            <div class="row">
+                <div class="c-cart-subtotal-row">
+                    <div class="col-md-2 col-md-offset-9 col-sm-6 col-xs-6 c-cart-subtotal-border">
+                        <h3 class="c-font-uppercase c-font-bold c-right c-font-16 c-font-grey-2">Grand Total</h3>
+                    </div>
+                    <div class="col-md-1 col-sm-6 col-xs-6 c-cart-subtotal-border">
+                        <h3 class="c-font-bold c-font-16">
+                        @{ 
+                            int BillAmount = gtotal + deliverycharges;
+
+                        }
+                        @BillAmount</h3>
+                    </div>
+                </div>
+            </div>
+            <!-- END: SUBTOTAL ITEM ROW -->
+            <div class="c-cart-buttons">
+                <a href="/Home/" class="btn c-btn btn-lg c-btn-red c-btn-square c-font-white c-font-bold c-font-uppercase c-cart-float-l">Continue Shopping</a>
+                <a href="/Cart/CheckOut/" class="btn c-btn btn-lg c-theme-btn c-btn-square c-font-white c-font-bold c-font-uppercase c-cart-float-r">Checkout</a>
+            </div>
+        </div>
+    </div>
+    }
+    else
+    {
+<div class="container">
+    <div class="c-content-box c-size-lg">
+        <div class="container">
+            <div class="c-shop-cart-page-1 c-center">
+                <i class="fa fa-frown-o c-font-dark c-font-50 c-font-thin "></i>
+                <h2 class="c-font-thin c-center">Your Shopping Cart is Empty</h2>
+                <a href="/Home/" class="btn c-btn btn-lg c-btn-dark c-btn-square c-font-white c-font-bold c-font-uppercase">Continue Shopping</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+    }
+
+</div>
+<!-- END: CONTENT/SHOPS/SHOP-CART-1 -->
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,118 @@
+﻿@using ILibrary
+@using ILibrary.Production
+@{
+    ViewBag.Title = "View All Product";
+    Layout = "~/Views/_Shared/_AdminLayOut.cshtml";
+    List<Product> AllProducts = ViewBag.ListofProduct;
+}
+<div class="row">
+    <a class="btn btn-foursquare" href="/Product/AddProduct">Add New</a>
+
+</div>
+<div class="row">
+    <table id="myTable" class="table table-bordered table-condensed table-hover table-responsive table-striped">
+        <thead class="">
+            <tr>
+                <td>
+                    SR#
+                </td>
+                <td>
+
+                    Name
+                </td>
+                <td>
+                    Description
+                </td>
+                <td>
+                    Color
+                </td>
+                <td>
+                    SubCategory
+                </td>
+                <td>
+                    Category
+                </td>
+                <td>
+                    Cost
+                </td>
+                <td>
+                    Discount Price
+                </td>
+                <td>
+                    Price
+                </td>
+                <td>
+                    Activate
+                </td>
+            </tr>
+
+
+        </thead>
+        <tbody class="">
+            @foreach (var item in AllProducts)
+            {
+                <tr class="danger">
+                    <td>
+                        @item.Id
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Description
+                    </td>
+                    <td>
+                        @item.Color.Name
+                    </td>
+                    <td>
+                        @item.SubCategory.Name
+                    </td>
+                    <td>
+                        @item.SubCategory.Category.Name
+                    </td>
+                    <td>
+                        @item.SalePrice
+                    </td>
+                    <td>
+                        @item.DiscountPrice
+                    </td>
+                    <td>
+                        @item.RetailPrice
+                    </td>
+                    <td>
+                        <div style="border:1px dotted grey; float:left;">
+                            <a href="~/Product/ActivateProduct/@item.Id" data-nuke="activate" data-value="@item.Id" class="icon-action-redo activateProduct"></a>
+
+                        </div>
+                     
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+@section myScript{
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+    function ActivateProduct(link) {
+        $.ajax({
+            url: link,
+            method: "GET"
+
+        }).done(function () {
+            location.reload();
+        });
+    }
+    
+    $('.activateProduct').click(function (e) {
+        e.preventDefault();
+        let link = $(this).attr('href');
+            ActivateProduct(link);
+    });
+
+    </script>
+}

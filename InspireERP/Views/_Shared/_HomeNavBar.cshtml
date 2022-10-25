@@ -1,0 +1,284 @@
+﻿@using ILibrary.Production;
+@using ILibrary.HRM;
+@using InspireERP.Models;
+@using ILibrary.AdminSide;
+
+@{ LoginUsers loginUsers = (LoginUsers)Session[WebUtil.User];
+    List<Department> d = new ProductHandler().DepartmentAsync();
+    List<Category> c = new ProductHandler().CategoriesAsync();
+    List<SubCategory> s = new ProductHandler().subCategories();
+    List<AddtoCartModel> cartModels = (List<AddtoCartModel>)Session[WebUtil.cartitem];
+    SiteConfiguration siteConfiguration = new AdminHelper().GetSiteConfiguration();
+    int gtotal = 0; }
+
+
+
+<!-- BEGIN: HEADER 2 -->
+<header class="c-layout-header c-layout-header-6" data-minimize-offset="80">
+    <div class="c-topbar">
+        <div class="container">
+            <nav class="c-top-menu">
+                <ul class="c-links c-theme-ul">
+                    <li>
+                        <a href="/Home/Help/" class="c-font-uppercase c-font-bold">Help</a>
+                    </li>
+                    <li>
+                        <a href="/Home/Privacy/" class="c-font-uppercase c-font-bold">Privacy Policy</a>
+                    </li>
+                    <li class="c-divider"></li>
+                    <li>
+                        <a href="#" class="c-font-uppercase c-font-bold c-font-dark">Support</a>
+                    </li>
+                    @if (Session[WebUtil.User] == null)
+                    {
+        <li>
+            <a href="javascript:;" data-toggle="modal" data-target="#login-form" class="btn c-theme-btn c-btn-square c-btn-uppercase c-btn-bold">Sign In</a>
+        </li>
+ }
+    else
+    {
+<li>
+    <a class="btn c-theme-btn c-btn-square c-btn-uppercase c-btn-bold" href="/Home/CustomerDashBoard/">DashBoard</a>
+</li>}
+
+                </ul>
+                <ul class="c-ext hide c-theme-ul">
+
+                    <li class="c-search hide">
+                        <!-- BEGIN: QUICK SEARCH -->
+
+                        <form action="/Home/ManualSearch/" method="get" enctype="text/plain">
+                            <input type="text" id="name" name="name" placeholder="search..." class="form-control">
+                            <i class="fa fa-search"></i>
+                        </form>
+                        <!-- END: QUICK SEARCH -->
+                    </li>
+                </ul>
+            </nav>
+            <div class="c-brand">
+                <a href="/Home/" class="c-logo">
+                    <img src="@siteConfiguration.CompanyLogo" alt="Inspire ERP" class="c-desktop-logo">
+                    <img src="@siteConfiguration.CompanyLogo" alt="Inspire ERP" class="c-desktop-logo-inverse">
+                    <img src="@siteConfiguration.CompanyLogo" alt="Inspire ERP" class="c-mobile-logo">
+                </a>
+                <ul class="c-icons c-theme-ul">
+                    <li>
+                        <a href="@siteConfiguration.Twitter">
+                            <i class="icon-social-twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@siteConfiguration.FaceBook">
+                            <i class="icon-social-facebook"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@siteConfiguration.WebSite">
+                            <i class="icon-social-dribbble"></i>
+                        </a>
+                    </li>
+                </ul>
+                <button class="c-topbar-toggler" type="button">
+                    <i class="fa fa-ellipsis-v"></i>
+                </button>
+                <button class="c-hor-nav-toggler" type="button" data-target=".c-mega-menu">
+                    <span class="c-line"></span>
+                    <span class="c-line"></span>
+                    <span class="c-line"></span>
+                </button>
+                <button class="c-search-toggler" type="button">
+                    <i class="fa fa-search"></i>
+                </button>
+                <a href="/Cart/GotoCart/" class="c-cart-icon hidden-lg" type="button">
+                    <i class="icon-handbag"></i>
+                    <span class="c-cart-number c-theme-bg">
+                    @if (cartModels==null)
+                    {
+                        <span>0</span>
+                    }
+                    else
+                    {
+                       <span>@cartModels.Count</span> 
+                    }
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="c-navbar">
+        <div class="container">
+            <!-- BEGIN: BRAND -->
+            <div class="c-navbar-wrapper clearfix">
+                <!-- END: BRAND -->
+                <!-- BEGIN: QUICK SEARCH -->
+                <form class="c-quick-search" action="/Home/ManualSearch/" method="get">
+                    <input type="text" name="name" placeholder="Type to search..." value="" class="form-control" autocomplete="off">
+                    <span class="c-theme-link">&times;</span>
+                </form>
+                <!-- END: QUICK SEARCH -->
+                <!-- BEGIN: HOR NAV -->
+                <!-- BEGIN: LAYOUT/HEADERS/MEGA-MENU -->
+                <!-- BEGIN: MEGA MENU -->
+                <!-- Dropdown menu toggle on mobile: c-toggler class can be applied to the link arrow or link itself depending on toggle mode -->
+
+            </div>
+            <style>
+            </style>
+
+        </div>
+
+        <script>
+
+        </script>
+        <nav class="c-mega-menu c-pull-right c-mega-menu-shown c-mega-menu-dark-mobile c-fonts-uppercase c-fonts-bold">
+
+            <ul class="nav navbar-nav c-theme-nav">
+                <li class="c-menu-type-classic ">
+                    <a class="c-link dropdown" data-toggle="dropdown">
+                        All Categories
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        @foreach (var item in d)
+                        {
+            <li class="list-group-item dropdown-submenu">
+
+                <a class="test" tabindex="-1" href="#">@item.Name <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    @foreach (var cat in c)
+                    {
+                        if (cat.Department.Id == item.Id)
+                        {
+    <li class="list-group-item dropdown-submenu">
+        <a class="test" href="#">@cat.Name <span class="caret"></span></a>
+
+        <ul class="dropdown-menu">
+            @foreach (var subcat in s)
+            {
+                if (subcat.Category.Id == cat.Id)
+                {
+<li class="list-group-item"><a href="/Home/GetbySubCat/@item.Id">@subcat.Name</a></li>}
+                        }
+
+        </ul>
+    </li>
+}
+}
+
+                </ul>
+            </li>
+}
+
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="/Home/SearchbySale/" class="c-link dropdown-toggle">
+                        Sale Products
+                        <span class="c-arrow c-toggler"></span>
+                    </a>
+
+                </li>
+
+                <li class="">
+                    <a href="/Home/SearchbyMostViewed" class="c-link dropdown-toggle">
+                        Hot Item's
+                        <span class="c-arrow c-toggler"></span>
+                    </a>
+
+                </li>
+
+                <li class="c-search-toggler-wrapper">
+                    <a href="#" class="c-btn-icon c-search-toggler">
+                        <i class="fa fa-search"></i>
+                    </a>
+                </li>
+
+                <li id="cartCounter" class="c-cart-toggler-wrapper">
+                    <a href="#" class="c-btn-icon c-cart-toggler">
+                        <i class="icon-handbag c-cart-icon"></i>
+                        <span class="c-cart-number c-theme-bg">
+                            @if (cartModels == null)
+                            {
+                <span>0</span> }
+            else
+            {
+@cartModels.Count}
+
+                        </span>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+        <!-- END: MEGA MENU -->
+        <!-- END: LAYOUT/HEADERS/MEGA-MENU -->
+        <!-- END: HOR NAV -->
+    </div>
+    <!-- BEGIN: LAYOUT/HEADERS/QUICK-CART -->
+    <!-- BEGIN: CART MENU -->
+    <div class="c-cart-menu">
+        <div class="c-cart-menu-title">
+            <p class="c-cart-menu-float-l c-font-sbold">
+                @if (cartModels == null)
+                {
+    <span>0 items</span> }
+else
+{
+@cartModels.Count <span>items</span>}
+            </p>
+            <p class="c-cart-menu-float-r c-theme-font c-font-sbold">
+                @if (cartModels == null)
+                {
+    <span>0 PKR</span> }
+else
+{
+
+
+    foreach (var item in cartModels)
+    {
+        gtotal = gtotal + item.Total;
+
+    }
+<span>@gtotal</span>}
+
+            </p>
+        </div>
+        <ul class="c-cart-menu-items">
+            @if (cartModels != null)
+            {
+                foreach (var item in cartModels)
+                {
+<li>
+    <div class="c-cart-menu-close">
+        <a href="/Cart/RemoveItem/@item.PId" class="c-theme-link">×</a>
+    </div>
+    <img src="@item.URL" />
+    <div class="c-cart-menu-content">
+        <p>
+            @item.Qty x
+            <span class="c-item-price c-theme-font">@item.Price</span>
+        </p>
+        <a href="/Home/GetProduct/@item.PId" class="c-item-name c-font-sbold">@item.Name</a>
+    </div>
+</li>
+}
+
+}
+
+
+
+
+        </ul>
+        <div class="c-cart-menu-footer">
+            <a href="/Cart/GotoCart/" class="btn btn-md c-btn c-btn-square c-btn-grey-3 c-font-white c-font-bold c-center c-font-uppercase">View Cart</a>
+            <a href="/Cart/CheckOut/" class="btn btn-md c-btn c-btn-square c-theme-btn c-font-white c-font-bold c-center c-font-uppercase">Checkout</a>
+        </div>
+    </div>
+    <!-- END: CART MENU -->
+    <!-- END: LAYOUT/HEADERS/QUICK-CART -->
+
+
+</header>
+
+<!-- END: HEADER 2 -->

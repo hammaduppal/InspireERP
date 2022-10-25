@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+
+@RenderPage("~/Views/_Shared/_Header.cshtml")
+
+<body class="c-layout-header-fixed c-layout-header-6-topbar">
+    @RenderPage("~/Views/_Shared/_HomeNavBar.cshtml")
+    @RenderPage("~/Views/_Shared/_BsModals.cshtml")
+    <!-- BEGIN: PAGE CONTAINER -->
+    <div class="c-layout-page">
+        <div class="col-md-2">
+            @RenderPage("~/Views/_Shared/_HomeSideBar.cshtml")
+        </div>
+        <div id="productBox" class="col-md-10">
+            @RenderBody()
+        </div>
+    </div>
+    <!-- END: PAGE CONTAINER -->
+    <!-- BEGIN: LAYOUT/FOOTERS/FOOTER-7 -->
+    @RenderPage("~/Views/_Shared/_FooterMenu.cshtml")
+    <!-- BEGIN: LAYOUT/FOOTERS/GO2TOP -->
+    <div class="c-layout-go2top">
+        <i class="icon-arrow-up"></i>
+    </div>
+    <!-- END: LAYOUT/FOOTERS/GO2TOP -->
+    <!-- BEGIN: LAYOUT/BASE/BOTTOM -->
+    <!-- BEGIN: CORE PLUGINS -->
+    [if lt IE 9]>
+    @RenderPage("~/Views/_Shared/_Footer.cshtml")
+            @RenderSection("HomeScript",false)
+        <script type="text/javascript">$(document).ready(function () {
+    $('.addtocart').click(function () {
+        let itemId = $(this).data('nuke');
+        let qty = 1;
+        let d = qty + '|' + itemId;
+        console.log(itemId + ' ' + qty)
+        $.ajax({ url: "/Cart/AddtoCart/?data=" + d, method: "GET" }).done(function (result) {
+            $('#cartCounter').html(result);
+
+        });
+        //alert('I am Clicked');
+    });
+        var dId = $('#dcm').val();
+        var trig = $('#dcm').data('nuke');
+        GetCounters(trig, dId);
+
+        //$('.addtocart').click(function (ele) {
+        //    ele.preventDefault();
+        //    console.log($(this).attr('href'));
+        //});
+    $('#dcm,#MinPrice,#MaxPrice,#sort,.s-chkbox,.cboxbrand').change(function (ele) {
+        dId = $('#dcm').val();
+       var sort= $('#sort').val();
+        console.log(sort);
+            var scb = $('.s-chkbox').is(":Checked");
+            var minprice = $('#MinPrice').val();
+            if (minprice == '') {
+                minprice = 0;
+                $('#MinPrice').val(0);
+            }
+            var maxprice = $('#MaxPrice').val();
+            if (maxprice == '') {
+                maxprice = 99999999;
+                $('#MaxPrice').val(99999999);
+
+            }
+            var bId = $('.cboxbrand').data('value');
+            var bcb = $('.cboxbrand').is(":Checked");
+            trig = $(this).data('nuke');
+            var carray = $('#inName').is(":checked");
+            var a = $(".inName :input").data('nuke');
+            //bId = $(this).data('value');
+            var barray = $("#bname input:checkbox:checked").map(function () {
+                return $(this).val();
+            }).get(); // <----
+            if (barray.length == 0)
+            {
+                barray = 0;
+            }
+            console.log(barray);
+
+            SearchOne(trig, dId, scb, minprice, maxprice, bId, bcb,barray,sort)
+            GetCounters(trig, dId);
+        });
+      // console.log( barray.each(0));
+    });
+    function SearchOne(trig,dId, scb , minprice, maxprice , bId ,bcb,barray,sort)
+    {
+        console.log(minprice +" & "+maxprice);
+        $.ajax({
+            url: "/Product/FilterSearch?trig=" + trig + "&dId=" + dId + "&scb=" + scb + "&minprice=" + minprice + "&maxprice="
+                + maxprice + "&bId=" + bId + "&bcb=" + bcb + "&barray=" + barray +"&sort="+sort  , method: "GET"
+        }).done(function (result) {
+            $('#productBox').html(result);
+        });
+    }
+
+
+    function GetCounters(trig, dId)
+    {
+        $.ajax({ url: "/Product/GetCounter?trig=" + trig + "&dId=" + dId, method: "GET" }).done(function (result) {
+            $('#salecheckbox').html(result);
+        });
+
+    }</script>
+        
+</body>
+</html>

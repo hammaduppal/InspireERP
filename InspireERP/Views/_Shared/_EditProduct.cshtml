@@ -1,0 +1,105 @@
+﻿@using ILibrary.Production
+@model Product
+@{
+    ViewBag.Title = "Index";
+    //Layout = "~/Views/_Shared/_AdminLayout.cshtml";
+}
+<!--Section: Block Content-->
+<section class="">
+    <div class="row">
+        <div class="col-md-7">
+            <h2 style="border:1px solid red;margin:2px; text-align:center;">Edit Pictures</h2>
+            @if (Model.Images != null)
+            {
+                foreach (var item in Model.Images)
+                {
+                    <img class="img-responsive img-thumbnail" src="@Url.Content(item.URL)" width="120" height="120" />
+                }
+            }
+            @using (Html.BeginForm("ChangeImages", "Product", FormMethod.Post, new { @class = "form-input-group", enctype = "multipart/form-data" }))
+            {
+                @Html.HiddenFor(x => x.Id)
+                <input type="file" name="images" multiple />
+                <input class="btn btn-success" value="Submit Pictures" type="submit" />
+            }
+        </div>
+        <div class="col-md-5">
+            <h2 style="border:1px solid red;margin:2px; text-align:center;">Edit Attributes</h2>
+            @using (Html.BeginForm("EditProduct", "Product", FormMethod.Post))
+            {
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <p class=" font-weight-bold"> Department Name:</p>
+                    </div>
+                    <div class="col-lg-8 text-muted"> @Model.SubCategory.Category.Department.Name</div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        Category Name:
+                    </div>
+                    <div class="col-lg-8 text-muted"> @Model.SubCategory.Category.Name</div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        SubCat Name:
+                    </div>
+                    <div class="col-lg-8 text-muted"> @Model.SubCategory.Name</div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        Set Sale Price:
+                    </div>
+
+                    <div class="col-lg-8">@Html.TextBoxFor(x => x.SalePrice, new { @class = "form-control" })</div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        Set Discount Price
+                    </div>
+                    <div class="col-lg-8">  @Html.TextBoxFor(x => x.DiscountPrice, new { @class = "form-control" })</div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        Retail Price:
+                    </div>
+                    <div class="col-lg-8">  @Html.TextBoxFor(x => x.RetailPrice, new { @class = "form-control" })</div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        Product Name
+                    </div>
+                    <div class="col-lg-8">@Html.TextBoxFor(x => x.Name, new { @class = "form-control" })</div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        Description:
+                    </div>
+                    <div class="col-lg-8"> @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })</div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        Activate Sale
+                    </div>
+                    <div class="col-lg-8"> @Html.CheckBoxFor(x => x.IsSale, new { @class = "" })</div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        Discount Activate
+                    </div>
+                    <div class="col-lg-8"> @Html.CheckBoxFor(x => x.IsDiscount, new { @class = "" })</div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        Featured Item
+                    </div>
+                    <div class="col-lg-8"> @Html.CheckBoxFor(x => x.IsFeatured, new { @class = "" })</div>
+                </div>
+                <hr>
+                <input class="btn btn-success" value="Submit Data" type="submit" />
+
+            }
+        </div>
+    </div>
+</section>
+<!--Section: Block Content-->

@@ -1,0 +1,662 @@
+﻿@using ILibrary.AdminSide;
+@using ILibrary.Production;
+@{ List<BannerSlider> b = ViewBag.GetActiveBanners;
+    List<PaidPromotions> pm = new AdminHelper().GetAllPromotions();
+                List<Department> departments = ViewBag.GetDepartments;
+                SiteConfiguration site = new AdminHelper().GetSiteConfiguration();
+        List<SelectListItem> category = ViewBag.category;
+        List<SelectListItem> countrylist = ViewBag.country; } 
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+@RenderPage("~/Views/_Shared/_Header.cshtml")
+
+<body class="c-layout-header-fixed c-layout-header-6-topbar">
+
+    <div id="productBox" class="col-md-12">
+        <!-- BEGIN: CONTENT/TABS/TAB-1 -->
+        <div class="c-content-box c-size-md c-no-bottom-padding c-overflow-hide">
+            <div class="c-container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="c-content-title-1">
+                            <h3 class="c-font-34 c-font-center c-font-bold c-font-uppercase c-margin-b-30"> Admin Panel</h3>
+                            <div class="c-line-center c-theme-bg"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <span>
+                            <a href="/Person/LogOut/">LogOut</a>
+                        </span>
+                        <div class="c-content-tab-2 c-theme c-opt-1">
+                            <ul class="nav c-tab-icon-stack c-font-sbold c-font-uppercase">
+                                <li class="active">
+                                    <a href="#c-tab2-opt1-1" data-toggle="tab">
+                                        <span class="c-content-line-icon c-icon-25"></span>
+                                        <span class="c-title">Slides and Tabbed</span>
+
+                                    </a>
+                                    <div class="c-arrow"></div>
+                                </li>
+                                <li>
+                                    <a href="#c-tab2-opt1-2" data-toggle="tab">
+                                        <span class="c-content-line-icon c-icon-19"></span>
+                                        <span class="c-title">Site Configuration</span>
+                                    </a>
+                                    <div class="c-arrow"></div>
+                                </li>
+                                <li>
+                                    <a href="#c-tab2-opt1-3" data-toggle="tab">
+                                        <span class="c-content-line-icon c-icon-14"></span>
+                                        <span class="c-title">Manage Attributes</span>
+                                    </a>
+                                    <div class="c-arrow"></div>
+                                </li>
+                                <li>
+                                    <a href="#c-tab2-opt1-4" data-toggle="tab">
+                                        <span class="c-content-line-icon c-icon-20"></span>
+                                        <span class="c-title">Promo Banners</span>
+                                    </a>
+                                    <div class="c-arrow"></div>
+                                </li>
+                                <li>
+                                    <a href="#c-tab2-opt1-5" data-toggle="tab">
+                                        <span class="c-content-line-icon c-icon-33"></span>
+                                        <span class="c-title">Under Constrution</span>
+                                    </a>
+                                    <div class="c-arrow"></div>
+                                </li>
+                            </ul>
+
+
+
+                            <div class="c-tab-content">
+                                <div class="c-bg-img-center1" style="background-image: url(/Content/assets/img/background/bg-95.jpg)">
+                                    <div class="container">
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade in active" id="c-tab2-opt1-1">
+                                                <div class="c-tab-pane">
+                                                    <div class="c-content-panel">
+                                                        <div class="c-label">Manage Slider Banners</div>
+                                                        <div class="c-body">
+                                                            <div class="c-content-tab-1">
+                                                                <div class="row">
+                                                                    <div class="col-md-3 col-sm-12 col-xs-12">
+                                                                        <ul class="nav nav-tabs tabs-left c-font-uppercase c-font-bold">
+                                                                            <li class="active">
+                                                                                <a href="#tab_16_1" data-toggle="tab">Add New</a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="#tab_16_2" data-toggle="tab">Disable / Enable Banner</a>
+                                                                            </li>
+                                                                            <li class=" ">
+                                                                                <a href="#tab_16_3" data-toggle="tab" aria-expanded="true"> TabbedPanelDepartments </a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="#tab_16_4" data-toggle="tab"> More </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <div class="col-md-9 col-sm-12 col-xs-12">
+                                                                        <div class="tab-content c-padding-sm">
+                                                                            <div class="tab-pane active" id="tab_16_1">
+                                                                                <form action="/SiteOwner/AddBanner" method="post" enctype="multipart/form-data">
+                                                                                    <input name="name" class="form-control" type="text" placeholder="Enter Title Name" />
+                                                                                    <input name="url" class="form-control" type="text" placeholder="Enter Product Link" />
+                                                                                    <input name="bannerImage" id="bannerImage" type="file" />
+                                                                                    <input class="btn btn-success form-control" type="submit" />
+                                                                                </form>
+                                                                            </div>
+
+                                                                            <div class="tab-pane fade" id="tab_16_2">
+                                                                                <table class="table">
+                                                                                    <thead><tr><td>Title</td><td>Image</td><td>View Product</td><td>Manage</td></tr></thead>
+                                                                                    <tbody>
+                                                                                        @foreach (var item in b)
+                                                                                        {
+                                                                            <tr>
+                                                                                <td>@item.Text</td>
+                                                                                <td><img width="50" src="@item.ImageURL" /> </td>
+                                                                                <td><a href="@item.URL">View Product</a></td>
+                                                                                <td>
+                                                                                    @if (item.IsActive == true)
+                                                                                    {
+                                                                    <input class="CheckedBanner" data-name="checked" data-nuke="@item.Id" type="checkbox" checked /> }
+                                                                else
+                                                                {
+                                                <input class="CheckedBanner" data-name="unchecked" data-nuke="@item.Id" type="checkbox" />}
+                                                                                </td>
+
+                                                                            </tr>}
+
+                                                                                    </tbody>
+                                                                                </table>
+
+                                                                            </div>
+
+                                                                            <div class="tab-pane fade" id="tab_16_3">
+                                                                                Tabbed Pannel Department Select
+                                                                                <select>
+                                                                                    <option>This Drop down is to view Only</option>
+                                                                                    @foreach (var item in departments)
+                                                                                    {
+                                                                        <option>@item.Name</option>
+}
+                                                                                </select>
+                                                                                <form action="/SiteOwner/TabbedName/">
+                                                                                    <input name="tab1" type="text" />
+                                                                                    <input name="tab2" type="text" />
+                                                                                    <input name="tab3" type="text" />
+                                                                                    <input name="tab4" type="text" />
+                                                                                    <input type="submit" />
+                                                                                </form>
+                                                                            </div>
+
+                                                                            <div class="tab-pane fade" id="tab_16_4">
+                                                                                <p>
+                                                                                    Under Constrution
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="tab-pane fade" id="c-tab2-opt1-2">
+                                                <div class="c-tab-pane">
+                                                    <form action="~/SiteOwner/UpdateConfiguration/" enctype="multipart/form-data" method="post">
+                                                        <input name="address" required class="form-control" type="text" value="@site.CompanyAddress" placeholder="Enter Address Please" />
+                                                        <input name="city" required class="form-control" type="text" value="@site.CompanyCity" placeholder="Enter City Please" />
+                                                        <input name="country" required class="form-control" type="text" value="@site.CompanyCountry" placeholder="Enter Country Please" />
+                                                        <input name="email" required class="form-control" type="text" value="@site.CompanyEmail" placeholder="Enter Email Please" />
+                                                        <input name="firstName" required class="form-control" type="text" value="@site.CompanyFirstName" placeholder="Enter Company First Half Name" />
+                                                        <input name="lastName" required class="form-control" type="text" value="@site.CompanyLastName" placeholder="Enter Company Last Half Name" />
+                                                        <input name="mobile" required class="form-control" type="text" value="@site.CompanyMobile" placeholder="Enter Company Contact" />
+                                                        <input name="note" required class="form-control" type="text" value="@site.CompanyNote" placeholder="Slogan or Small Note" />
+                                                        <input name="skype" required class="form-control" type="text" value="@site.CompanySkype" placeholder="Enter Company YouTube" />
+                                                        <input name="facebook" required class="form-control" type="text" value="@site.FaceBook" placeholder="Enter Company FaceBook" />
+                                                        <input name="twitter" required class="form-control" type="text" value="@site.Twitter" placeholder="Enter Company Twitter" />
+                                                        <input name="website" required class="form-control" type="text" value="@site.WebSite" placeholder="Enter Company WebSite" />
+                                                        <input required class="form-control" type="file" name="cLogo" />
+                                                        <span>Image resolution 100 x 55 and .jpg file only</span><br />
+                                                        <input type="submit" />
+
+
+
+
+                                                    </form>
+                                                    <img src="@site.CompanyLogo" width="200" />
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="tab-pane fade" id="c-tab2-opt1-3">
+                                                <div class="c-tab-pane">
+                                                    <img class="img-responsive" src="assets/base/img/content/stock2/5.jpg" alt="" />
+                                                    <h4 class="c-font-30 c-font-thin c-font-uppercase c-font-bold">Dedicated Support To All Customers</h4>
+
+
+                                                    <div class="row">
+                                                        <div style="margin-left:200px;" id="message"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div style="" class="col-md-2 c-border c-border-2px">
+                                                            Add Country
+                                                            <div class="row">
+                                                                <form action="/Person/AddCountry/">
+                                                                    <input tabindex="0" type="text" placeholder="Enter Country Name" data-nuke="country" class="form-control" name="name" id="countryName" />
+                                                                    <input class="form-control btn btn-success" disabled id="countrySubmit" type="submit" />
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <div style="height:150px; margin:10px;" class="col-md-2 c-border c-border-2px">
+
+                                                            <div class="row">
+                                                                Add City
+                                                                <form action="/Person/AddCity/">
+                                                                    <select name="countrylist" id="countrylist" class="form-control">
+                                                                        @foreach (var item in countrylist)
+                                                                        {
+                                                            <option>@item.Text</option>}
+                                                                    </select>
+                                                                    <input tabindex="1" data-nuke="city" id="cityName" name="cityName" type="text" class="form-control" placeholder="Enter City Name" />
+                                                                    <input class="form-control btn btn-success" disabled id="citySubmit" type="submit" />
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2 c-border c-border-2px" style="height: 150px; margin: 10px;">
+                                                            <div class="row">
+                                                                Add Department
+                                                                <form action="~/Product/AddDepartment" method="post">
+
+                                                                    <input tabindex="2" class="form-control" data-nuke="department" id="depu" type="text" name="name" />
+                                                                    <input class="form-control btn btn-success" disabled id="deparsubmit" type="submit" />
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2 c-border c-border-2px" style="height: 150px; margin: 10px;">
+                                                            <div class="row">
+                                                                Add Category
+                                                                <form action="~/Product/AddCategory" method="post">
+                                                                    <select name="department" id="depforcat" class="form-control">
+                                                                        @foreach (var item in departments)
+                                                                        {
+                                                            <option class="form-control">
+                                                                @item.Name
+                                                            </option>}
+                                                                    </select>
+                                                                    <input class="form-control" data-nuke="category" id="categoryName" type="text" name="name" />
+                                                                    <input data-nuke="category" class="form-control btn btn-success" disabled id="categorySubmit" type="submit" />
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2 c-border c-border-2px" style="height: 150px; margin: 10px;">
+                                                            <div class="row">
+                                                                <form action="~/Product/AddSubCategory" method="post">
+                                                                    <select id="deptwo" name="departmentwo" class="form-control">
+                                                                        <option>-- Select --</option>
+                                                                        @foreach (var item in departments)
+                                                                        {
+                                                            <option data-value="@item.Id" class="form-control">
+                                                                @item.Name
+                                                            </option>}
+
+                                                                    </select>
+                                                                    <div id="cat2" class="">
+                                                                        <select class="form-control">
+                                                                            <option class="form-control">
+                                                                                -- Select --
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <input class="form-control" data-nuke="subcategory" id="subcategory" type="text" name="subcategory" />
+                                                                    <input class="form-control btn btn-success" disabled id="subcategorySubmit" type="submit" />
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2 c-border c-border-2px" style="height: 150px; margin: 10px;">
+                                                            Add Color
+                                                            <div class="row">
+                                                                <form action="/Product/AddColor/">
+                                                                    <input id="color" data-nuke="color" class="form-control" type="text" name="color" />
+                                                                    <input id="colorbtn" class="form-control btn btn-success" disabled type="submit" />
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2 c-border c-border-2px" style="height: 150px; margin: 10px;">
+                                                            Add Brand
+                                                            <div class="row">
+                                                                <form action="/Product/AddBrand/">
+                                                                    <input id="brand" data-nuke="brand" class="form-control" type="text" name="brand" />
+                                                                    <input id="brandbtn" class="form-control btn btn-success" disabled type="submit" />
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2 c-border c-border-2px" style="height: 150px; margin: 10px;">
+                                                            Add Material
+                                                            <div class="row">
+                                                                <form action="/Product/AddMaterial/">
+                                                                    <input id="material" data-nuke="material" class="form-control" type="text" name="material" />
+                                                                    <input id="materialbtn" class="form-control btn btn-success" disabled type="submit" />
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2 c-border c-border-2px" style="height: 150px; margin: 10px;">
+                                                            Add Size
+                                                            <div class="row">
+                                                                <form action="/Product/AddSize/">
+                                                                    <input id="size" data-nuke="size" class="form-control" type="text" name="size" />
+                                                                    <input id="sizebtn" class="form-control btn btn-success" disabled type="submit" />
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2 c-border c-border-2px" style="height: 150px; margin: 10px;">
+
+                                                        </div>
+                                                    </div>
+
+
+
+
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="tab-pane fade" id="c-tab2-opt1-4">
+                                                <div class="c-tab-pane">
+                                                    <img class="img-responsive" src="assets/base/img/content/stock2/06.jpg" alt="" />
+                                                    <div class="c-body">
+                                                        <div class="c-content-tab-1">
+                                                            <div class="row">
+                                                                <div class="col-md-3 col-sm-12 col-xs-12">
+                                                                    <ul class="nav nav-tabs tabs-left c-font-uppercase c-font-bold">
+                                                                        <li class="active">
+                                                                            <a href="#tab_17_1" data-toggle="tab">Add New Promo</a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#tab_17_2" data-toggle="tab">Disable / Enable Promo</a>
+                                                                        </li>
+
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="col-md-9 col-sm-12 col-xs-12">
+                                                                    <div class="tab-content c-padding-sm">
+                                                                        <div class="tab-pane active" id="tab_17_1">
+                                                                            <form action="SiteOwner/AddPromo/" method="post" enctype="multipart/form-data">
+                                                                                <input name="addName" id="addName" type="text" class="form-control" placeholder="Enter Add Name" />
+                                                                                <input name="addDesc" id="addDesc" type="text" class="form-control" placeholder="Enter Add Description" />
+                                                                                <input name="addURL" id="addURL" type="text" class="form-control" placeholder="Enter Product Link" />
+                                                                                <input name="addNumber" value="0" min="0" max="3" class="" id="addNumber" type="number" placeholder="Enter Number of Add" />
+                                                                                <input name="promoImage" id="promoImage" type="file" />
+                                                                                <input type="submit" />
+
+                                                                            </form>
+                                                                        </div>
+
+                                                                        <div class="tab-pane fade" id="tab_17_2">
+                                                                            <table class="table">
+                                                                                <thead><tr><td>Value</td><td>Title</td><td>Desc</td><td>Image</td><td>View Product</td><td>Manage</td></tr></thead>
+                                                                                <tbody>
+                                                                                    @foreach (var item in pm)
+                                                                                    {
+                                                                        <tr>
+                                                                            <td>@item.AddVavlue</td>
+                                                                            <td>@item.Name</td>
+                                                                            <td>@item.Description</td>
+                                                                            <td><img width="50" src="@item.ImageUrl" /> </td>
+                                                                            <td><a href="@item.Url">View Product</a></td>
+                                                                            <td>
+                                                                                @if (item.IsActive == true)
+                                                                                {
+                                                                <input class="checkedPromo" data-name="checked" data-nuke="@item.Id" type="checkbox" checked /> }
+                                                            else
+                                                            {
+                                            <input class="checkedPromo" data-name="unchecked" data-nuke="@item.Id" type="checkbox" />}
+                                                                            </td>
+
+                                                                        </tr>
+}
+
+                                                                                </tbody>
+                                                                            </table>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+
+
+
+
+
+
+                                            <div class="tab-pane fade" id="c-tab2-opt1-5">
+                                                <div class="c-tab-pane">
+                                                    <img class="img-responsive" src="assets/base/img/content/stock2/6.jpg" alt="" />
+                                                    <p class="c-font-17 c-margin-b-20 c-margin-t-20 c-font-thin ">
+                                                        Under Construction
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END: CONTENT/TABS/TAB-1 -->
+    </div>
+    <!-- END: PAGE CONTAINER -->
+    <!-- BEGIN: LAYOUT/FOOTERS/GO2TOP -->
+    <div class="c-layout-go2top">
+        <i class="icon-arrow-up"></i>
+    </div>
+    <!-- END: LAYOUT/FOOTERS/GO2TOP -->
+    <!-- BEGIN: LAYOUT/BASE/BOTTOM -->
+    <!-- BEGIN: CORE PLUGINS -->
+
+    @RenderPage("~/Views/_Shared/_Footer.cshtml")
+    <script type="text/javascript">
+        $('.CheckedBanner').click(function () {
+            var name = $(this).data('name');
+            var Id = $(this).data('nuke')
+            if (name == 'checked') {
+                $.ajax({ url: "/SiteOwner/DisableBanner/" + Id, method: "GET" }).done(function () {
+                    location.reload();
+                });
+            }
+            else if (name == 'unchecked') {
+                $.ajax({ url: "/SiteOwner/EnableBanner/" + Id, method: "GET" }).done(function () {
+                    location.reload();
+                });
+            }
+
+        });
+        $('.checkedPromo').click(function () {
+            var name = $(this).data('name');
+            var Id = $(this).data('nuke')
+            if (name == 'checked') {
+                $.ajax({ url: "/SiteOwner/DisablePromo/" + Id, method: "GET" }).done(function () {
+                    location.reload();
+                });
+            }
+            else if (name == 'unchecked') {
+                $.ajax({ url: "/SiteOwner/EnablePromo/" + Id, method: "GET" }).done(function () {
+                    location.reload();
+                });
+            }
+
+        });
+
+        $('#deptwo').change(function () {
+            let name = $(this).val();
+            $.ajax({ url: "/Product/GetCategorybyName/?name=" + name, method: "GET" }).done(function (result) {
+                $('#cat2').html(result);
+            });
+        });
+        $('#depu').keyup(function () {
+            let name = $(this).val();
+            CheckDepartment(name);
+        });
+        $('#categoryName').keyup(function () {
+            let name = $(this).val();
+            let depvalue = $('#depforcat').val();
+            CheckCategory(name, depvalue);
+        });
+        $('#subcategory').keyup(function () {
+            let name = $(this).val();
+            let catvalue = $('#damage').val();
+            let depvalue = $('#deptwo').val();
+            CheckSubCategory(depvalue, catvalue, name)
+            console.log(catvalue + " " + depvalue + " " + name);
+        });
+        $('#color').keyup(function () {
+            let name = $(this).val();
+            CheckColor(name);
+        });
+        $('#brand').keyup(function () {
+            let name = $(this).val();
+            CheckBrand(name);
+        });
+        $('#material').keyup(function () {
+            let name = $(this).val();
+            CheckMaterial(name);
+        });
+        $('#size').keyup(function () {
+            let name = $(this).val();
+            CheckSize(name);
+        });
+        $('#countryName,#cityName').keyup(function () {
+            let nuke = $(this).data('nuke');
+            let name = $(this).val();
+            let depvalue = $('#countrylist').val();
+            if (nuke == 'country') {
+                CheckCountry(name);
+            }
+            else if (nuke = 'city') {
+                CheckCity(name, depvalue);
+            }
+            else {
+                console.log('no relevant nuke');
+            }
+        });
+
+
+        function CheckColor(name) {
+            $.ajax({ url: "/Product/CheckColor/?name=" + name, method: "GET" }).done(function (result) {
+                if (result == 'true') {
+                    $('#colorbtn').attr("disabled", "disabled");
+                    $('#message').html('Not Available');
+
+                }
+                else if (result == 'false') {
+                    $('#colorbtn').removeAttr('disabled');
+                    $('#message').html('Available');
+                }
+            });
+        }
+        function CheckMaterial(name) {
+            $.ajax({ url: "/Product/CheckMaterial/?name=" + name, method: "GET" }).done(function (result) {
+                if (result == 'true') {
+                    $('#materialbtn').attr("disabled", "disabled");
+                    $('#message').html('Not Available');
+
+                }
+                else if (result == 'false') {
+                    $('#materialbtn').removeAttr('disabled');
+                    $('#message').html('Available');
+                }
+            });
+        }
+        function CheckSize(name) {
+            $.ajax({ url: "/Product/CheckSize/?name=" + name, method: "GET" }).done(function (result) {
+                if (result == 'true') {
+                    $('#sizebtn').attr("disabled", "disabled");
+                    $('#message').html('Not Available');
+
+                }
+                else if (result == 'false') {
+                    $('#sizebtn').removeAttr('disabled');
+                    $('#message').html('Available');
+                }
+            });
+        }
+
+        function CheckBrand(name) {
+            $.ajax({ url: "/Product/CheckBrand/?name=" + name, method: "GET" }).done(function (result) {
+                if (result == 'true') {
+                    $('#brandbtn').attr("disabled", "disabled");
+                    $('#message').html('Not Available');
+
+                }
+                else if (result == 'false') {
+                    $('#brandbtn').removeAttr('disabled');
+                    $('#message').html('Available');
+                }
+            });
+        }
+        function CheckSubCategory(catvalue, depvalue, name) {
+            var obj = { "Name": name, "DepValue": depvalue, "CatValue": catvalue }
+            $.ajax({ url: "/Product/CheckSubCategory/", method: "GET", data: obj }).done(function (result) {
+                if (result == 'true') {
+                    $('#subcategorySubmit').attr("disabled", "disabled");
+                    $('#message').html('Not Available');
+
+                }
+                else if (result == 'false') {
+                    $('#subcategorySubmit').removeAttr('disabled');
+                    $('#message').html('Available');
+                }
+            });
+        }
+        function CheckCategory(name, depvalue) {
+            console.log(name + "-" + depvalue);
+            var obj = { "Name": name, "DepValue": depvalue }
+            $.ajax({ url: "/Product/CheckCategory/", method: "GET", data: obj }).done(function (result) {
+                console.log(result);
+                if (result == 'true') {
+                    $('#message').html('Not Available');
+                    $('#categorySubmit').attr("disabled", "disabled");
+                }
+                else {
+                    $('#message').html('Yes Available');
+                    $('#categorySubmit').removeAttr('disabled');
+
+                }
+
+            });
+        }
+        function CheckDepartment(name) {
+            $.ajax({ url: "/Product/CheckDepartment/?name=" + name, method: "GET" }).done(function (result) {
+                if (result == 'true') {
+                    $('#message').html('Not Available');
+                    $('#deparsubmit').attr("disabled", "disabled");
+                }
+                else {
+                    $('#message').html('Yes Available');
+                    $('#deparsubmit').removeAttr('disabled');
+
+                }
+
+            });
+        }
+        function CheckCity(name, depvalue) {
+            var obj = { "Name": name, "DepValue": depvalue }
+            $.ajax({ url: "/Person/CheckCity/?name=" + name, method: "GET", data: obj }).done(function (result) {
+                if (result == 'true') {
+                    $('#citySubmit').attr("disabled", "disabled");
+                    $('#message').html('Not Available');
+
+                }
+                else if (result == 'false') {
+                    $('#citySubmit').removeAttr('disabled');
+                    $('#message').html('Available');
+
+                }
+            });
+        }
+        function CheckCountry(name) {
+            $.ajax({ url: "/Person/CheckCountry/?name=" + name, method: "GET" }).done(function (result) {
+                if (result == 'true') {
+                    $('#countrySubmit').attr("disabled", "disabled");
+                    $('#message').html('Not Available');
+                }
+                else if (result == 'false') {
+                    $('#countrySubmit').removeAttr('disabled');
+                    $('#message').html('Available');
+                }
+            });
+        }
+
+
+
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+﻿@using ILibrary
+@using ILibrary.Production
+@{ 
+    MyDbContext con = new MyDbContext();
+                List<Department> departments = con.DbSetDepartment.ToList();
+                List<Brand> brands = con.DbSetBrand.ToList(); 
+}
+<div class="c-layout-sidebar-menu c-theme ">
+    <!-- BEGIN: LAYOUT/SIDEBARS/SHOP-SIDEBAR-MENU-2 -->
+    <div class="c-sidebar-menu-toggler">
+        <h3 class="c-title c-font-uppercase c-font-bold">Navigation</h3>
+        <a href="javascript:;" class="c-content-toggler" data-toggle="collapse" data-target="#sidebar-menu-1">
+            <span class="c-line"></span>
+            <span class="c-line"></span>
+            <span class="c-line"></span>
+        </a>
+    </div>
+    <!-- BEGIN: CONTENT/SHOPS/SHOP-FILTER-SEARCH-1 -->
+    
+    <ul class="c-shop-filter-search-1 list-unstyled">
+        <li>
+            <select data-nuke="sort" id="sort">
+                <option>
+                    Price Low to High
+                </option>
+                <option>
+                    Price High to Low
+                </option>
+            </select>
+        </li>
+        <li>
+            <label class="control-label c-font-uppercase c-font-bold">Department</label>
+            <select id="dcm" data-nuke="filterdepartment" class="form-control c-square c-theme">
+                <option value="0">-- Show All Products --</option>
+                @foreach (var item in departments)
+                {
+    <option value="@item.Id">@item.Name</option>}
+
+            </select>
+        </li>
+        <li>
+            <label class="control-label c-font-uppercase c-font-bold">Availability</label>
+            <div class="c-checkbox">
+                <input type="checkbox" id="checkbox-sidebar-3-1" data-nuke="salecheckbox" class="c-check s-chkbox">
+                <label for="checkbox-sidebar-3-1">
+                    <span class="inc"></span>
+                    <span class="check"></span>
+                    <span class="box"></span>
+                    <p>Sale Product (<span id="salecheckbox"></span>)</p>
+                </label>
+            </div>
+
+        </li>
+        <li>
+            <label class="control-label c-font-uppercase c-font-bold">Price Range</label>
+            <div class="c-price-range-box input-group">
+                <div class="c-price input-group col-md-4 pull-left">
+                    <input id="MinPrice" data-nuke="pricemin" min="0" value="0" type="text" class="form-control c-square c-theme" placeholder="from">
+                </div>
+                <div class="c-price input-group col-md-4 pull-left">
+                    <input id="MaxPrice" data-nuke="pricemax" min="0" value="200000" type="text" class="form-control c-square c-theme" placeholder="to">
+                    <span class="input-group-addon c-square c-theme"><a id="searchbyPrice" href="#"><span class="icon-magnifier"></span></a></span>
+                </div>
+
+            </div>
+        </li>
+
+
+        <li>
+            <label class="control-label c-font-uppercase c-font-bold">Search by Brand</label>
+
+            <div id="bname" class="input-group">
+                @foreach (var item in brands)
+                {
+    <div class="bname">
+        <input type="checkbox" value="@item.Id" data-nuke="brandname" data-value="@item.Id" class="cboxbrand @item.Id">
+        @item.Name
+    </div>            }
+            </div>
+        </li>
+
+    </ul>
+
+</div>

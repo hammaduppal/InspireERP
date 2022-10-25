@@ -1,0 +1,67 @@
+﻿@using ILibrary.Production,
+@model Product
+
+
+<div class="row" style="margin:10px;">
+    <div class="col-md-7 ">
+        <div class="row">
+            @if ( Model.Images!= null)
+            { 
+            <div style="border:10px outset  #d1cfcf ridge;">
+
+
+                <img id="" class="img-responsive img-thumbnail congoImage" src="@Url.Content(Model.Images.First().URL)" width="600" height="600" />
+            </div>
+            }
+            else
+            {
+                <img id="" class="img-responsive" src="/Content/Images/noimage.jpg" width="600" height="600" />
+            }
+        </div>
+        <div class="col-lg-8">
+            @if (Model.Images != null)
+            {
+                foreach (var item in Model.Images)
+                {
+                    <img class="img-thumbnail thmbimg" src="@Url.Content(item.URL)" height="50" width="80" />
+                }
+            }
+        </div>
+    </div>
+   <div class="col-md-4" style="padding:10px; margin-left:20px; border:10px outset  #d1cfcf;">
+       <div class="row">
+           <h2 class="list-group-item list-group-item-heading"> @Model.Name</h2>
+       </div>
+       <h4>Price: <i> <u>@Model.RetailPrice</u></i> </h4>
+       <h4>
+           Qty:  @Model.Qty
+       </h4>
+       <p class="text-justify">
+           <h6>
+               @Model.Description
+           </h6>
+       </p>
+
+       <h6>
+           @Model.Color.Name
+       </h6>
+       <h6>
+           @Model.SalePrice
+       </h6>
+       <h6>
+           @Model.SubCategory.Name
+       </h6>
+       <h6>
+           @Model.SubCategory.Category.Name
+       </h6>
+       <h6>
+           @Model.SubCategory.Category.Department.Name
+       </h6>
+   </div>
+</div>
+<script type="text/javascript">
+    $('.thmbimg').hover(function () {
+        $('.congoImage').attr('src', $(this).attr('src'));
+    });
+</script>
+

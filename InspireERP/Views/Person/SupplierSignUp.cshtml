@@ -1,0 +1,173 @@
+﻿@using ILibrary.HRM
+@using InspireERP.Models
+@model Supplier
+    @{ 
+        List<SelectListItem> countries = ModelHelper.selectListItem( new HRHandler().GetCountry());
+        List<SelectListItem> cities = ModelHelper.selectListItem(new HRHandler().GetCity());
+
+    }
+<!DOCTYPE html>
+<html lang="en">
+@RenderPage("~/Views/_Shared/_Header.cshtml")
+
+
+<body>
+    <!-- BEGIN: PAGE CONTAINER -->
+    <div class="c-layout-page">
+        <!-- BEGIN: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
+        <div class="c-layout-breadcrumbs-1 c-subtitle c-fonts-uppercase c-fonts-bold c-bordered c-bordered-both">
+            <div class="container">
+                <div class="c-page-title c-pull-left">
+                    <h3 class="c-font-uppercase c-font-sbold">Supplier SignUp</h3>
+                    <h4 class="">Become Supplier</h4>
+                </div>
+                <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular">
+                    <li class="c-state_active">Inspire Nation</li>
+                </ul>
+            </div>
+        </div>
+        <div class="container">
+     
+            <div class="c-layout-sidebar-content ">
+                <div class="c-content-title-1">
+                    <h3 class="c-font-uppercase c-font-bold">Update Profile</h3>
+                    <div class="c-line-left"></div>
+                </div>
+                    @using (Html.BeginForm("SupplierSignUp","Person" ,FormMethod.Post,new {@class="form-control", enctype = "multipart/form-data"}))
+                    {
+                        <div class="row">
+                            <span>Personal Details</span>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label class="control-label">First Name</label>
+                                        @Html.TextBoxFor(x => x.Person.FirstName, new { @class = "form-control c-square c-theme", placeholder = "First Name", @required = "required" })
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="control-label">Last Name</label>
+                                        @Html.TextBoxFor(x => x.Person.LastName, new { @class = "form-control c-square c-theme", placeholder = "Last Name", @required = "required" })
+                                    </div>
+
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="control-label">Mobile</label>
+                                        @Html.TextBoxFor(x => x.Person.MobileNumber, new { @class = "form-control c-square c-theme", placeholder = "Mobile", @required = "required", pattern = "[0-3]{3}[0-9]{7}" })
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="control-label">Email</label>
+                                        @Html.TextBoxFor(x => x.Person.Email, new { @class = "form-control c-square c-theme", placeholder = "Email", @required = "required",type="Email" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <span>Address</span>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Billing Address</label>
+                                <input required name="address1" id="address1" type="text" class="form-control c-square c-theme" placeholder="WareHouse Address">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Shipping Address</label>
+                                <input required name="address2" id="address2" type="text" class="form-control c-square c-theme" placeholder="HeadOffice Address">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="control-label">Country</label>
+                                <select required name="country" id="country" class="form-control c-square c-theme">
+
+                                    <option value="0">Please Select</option>
+                                    @foreach (var item in countries)
+                                    {
+                                        <option>@item.Text</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label class="control-label">City</label>
+                                <select required name="city" id="city" class="form-control c-square c-theme">
+                                    <option value="0">Select an option...</option>
+                                    @foreach (var item in cities)
+                                    {
+                                        <option>@item.Text</option>
+
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <span>Company Details</span>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label class="control-label">NTN Number</label>
+                                        @Html.TextBoxFor(x => x.NTN, new { @class = "form-control c-square c-theme", placeholder = "NTN Number", @required = "required" })
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="control-label">Company Name</label>
+                                        @Html.TextBoxFor(x => x.CompanyName, new { @class = "form-control c-square c-theme", placeholder = "Company Name", @required = "required" })
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: BILLING ADDRESS -->
+                        <!-- BEGIN: PASSWORD -->
+                        <div class="row">
+                            <span>Login Details</span>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label class="control-label">User Name</label>
+                                        @Html.TextBoxFor(x => x.LoginUser.UserName, new { @class = "form-control c-square c-theme", placeholder = "User Name", @required = "required" })
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="control-label">Password</label>
+                                        @Html.TextBoxFor(x => x.LoginUser.Password, new { @class = "form-control c-square c-theme", placeholder = "Password", @required = "required", type="password" })
+                                        <p class="help-block">
+                                            Hint: The password should be at least six characters long.
+                                            <br /> To make it stronger, use upper and lower case letters, numbers, and symbols like ! " ? $ % ^ & ).
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label  class="control-label"> Company Logo</label>
+                                <input required name="logo" id="logo" type="file" />
+                                <label class="control-label"> Copy of NTN</label>
+                                <input required name="ntn" id="ntn" type="file" />
+                            </div>
+                        </div>
+                        <!-- END: PASSWORD -->
+                        <div class="row c-margin-t-30">
+                            <div class="form-group col-md-12" role="group">
+                                <button type="submit" class="btn btn-lg c-theme-btn c-btn-square c-btn-uppercase c-btn-bold">Submit</button>
+                            </div>
+                        </div>
+                    }
+                    <!-- BEGIN: ADDRESS FORM -->
+                    <!-- END: ADDRESS FORM -->
+                <!-- END: PAGE CONTENT -->
+            </div>
+        </div>
+    </div>
+    <!-- END: PAGE CONTAINER -->
+
+</body>
+</html>
+@RenderPage("~/Views/_Shared/_Footer.cshtml")
+
+<script type="text/javascript">
+  
+  
+</script>

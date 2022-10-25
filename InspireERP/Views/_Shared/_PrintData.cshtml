@@ -1,0 +1,66 @@
+﻿@using ILibrary.SaleManager;
+@using ILibrary.HRM;
+
+@{ 
+    OrderMaster om = ViewBag.OrderMaster;
+    StretAddress s = om.Customer.Person.StretAddress.Where(x => x.AddressType == AddressType.Shipping).FirstOrDefault();
+}
+<div id="GFG">
+    <div><p class="text-uppercase text-center c-font-dark">Inspire Nation E-Comm</p></div>
+    <table class="table table-responsive table-bordered">
+        <tr>
+            <td>Customer Name: </td>
+            <td>@om.Customer.Person.FirstName</td>
+            <td>ItemCode:</td>
+            <td>@om.Product.BarCode</td>
+        </tr>
+        <tr>
+            <td>Delivery Address </td>
+            <td>@s.StAddress</td>
+            <td>Item Qty</td>
+            <td>@om.Qty</td>
+        </tr>
+        <tr>
+            <td>City /Country</td>
+            <td>@s.City.Name, @s.City.Country.Name</td>
+            <td>IsFragile</td>
+            <td>NO</td>
+        </tr>
+        <tr>
+            <td>Contact Number</td>
+            <td>+92 @om.Customer.Person.MobileNumber<td>
+            <td>Product Cost</td>
+            <td>@om.Price</td>
+        </tr>
+        <tr>
+            <td>Delivery Note</td>
+            <td>@om.OrderNote</td>
+            <td>Total Bill</td>
+            @{ 
+                int to = 0;
+                 to = om.Price * om.Qty;
+            }
+            <td>Total Item Cost :@to Delivery Charges: @om.DeliveryCharges = Total Price: @om.GrandTotal</td>
+        </tr>
+        <tr>
+            <td>Product Name</td>
+            <td>@om.Product.Name</td>
+            <td>Other</td>
+            <td>@om.Product.Description</td>
+        </tr>
+    </table>
+</div>
+<input type="button" value="click"
+       onclick="printDiv()">
+<script type="text/javascript">
+    function printDiv() {
+        var divContents = document.getElementById("GFG").innerHTML;
+        var a = window.open('', '', 'height=500, width=500');
+        a.document.write('<html>');
+        a.document.write('<body > <h1>Invoice Details <br>');
+        a.document.write(divContents);
+        a.document.write('</body></html>');
+        a.document.close();
+        a.print();
+    }
+</script>

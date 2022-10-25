@@ -1,0 +1,91 @@
+﻿@using ILibrary.Production;
+@{ 
+    List<Product> p = new ProductHandler().GetPopularProducts();
+}
+
+<!-- BEGIN: CONTENT/SHOPS/SHOP-2-1 -->
+<div class="c-content-box c-size-md c-overflow-hide c-bs-grid-small-space c-bg-grey-1">
+    <div class="container">
+        <div class="c-content-title-4">
+            <h3 class="c-font-uppercase c-center c-font-bold c-line-strike">
+                <span class="c-bg-grey-1">Most Popular</span>
+            </h3>
+        </div>
+        <div class="row">
+            <div data-slider="owl" data-items="4" data-auto-play="8000">
+                <div class="owl-carousel owl-theme c-theme owl-small-space">
+                    @foreach (var item in p)
+                    {
+                        <div class="item">
+                            <div class="c-content-product-2 c-bg-white c-border">
+                                <div class="c-content-overlay">
+                                    <div class="c-label c-bg-red c-font-uppercase c-font-white c-font-13 c-font-bold">@item.ViewCounts</div>
+                                    @if (item.IsSale == true && item.IsDiscount == true)
+                                    {
+                                        <div class="c-label c-label-right c-theme-bg c-font-uppercase c-font-white c-font-13 c-font-bold">Speical</div>
+
+                                    }
+                                    else if (item.IsSale == true)
+                                    {
+                                        <div class="c-label c-label-right c-theme-bg c-font-uppercase c-font-white c-font-13 c-font-bold">Sale</div>
+
+                                    }
+                                    else if (item.IsDiscount == true)
+                                    {
+                                        <div class="c-label c-label-right c-theme-bg c-font-uppercase c-font-white c-font-13 c-font-bold">Discount</div>
+
+                                    }
+                                    <div class="c-overlay-wrapper">
+                                        <div class="c-overlay-content">
+                                            <a href="/Home/GetProduct/@item.Id" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">Explore</a>
+                                        </div>
+                                    </div>
+                                    @if (item.Images.Count > 1)
+                                    {
+                                        <div class="c-bg-img-center-contain c-overlay-object" data-height="height" style="height: 270px; background-image: url(@item.Images.First().URL);"></div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="c-bg-img-center-contain c-overlay-object" data-height="height" style="height: 270px; background-image: url(/Content/assets/img/nophoto.png);"></div>
+
+                                    }
+                                </div>
+                                <div class="c-info">
+                                    <p class="c-title c-font-18 c-font-slim">@item.Name</p>
+                                    <p class="c-price c-font-16 c-font-slim">
+
+                                        @if (item.IsDiscount == true && item.IsSale == true)
+                                        {
+
+                                            <span>@item.RetailPrice</span>
+                                        }
+                                        else if (item.IsDiscount == true)
+                                        {
+                                            <span>@item.DiscountPrice</span>
+                                            <span class="c-font-16 c-font-line-through c-font-red">@item.RetailPrice</span>
+                                        }
+                                        else if (item.IsSale == true)
+                                        {
+                                            <span>@item.SalePrice</span>
+                                            <span class="c-font-16 c-font-line-through c-font-red">@item.RetailPrice</span>
+                                        }
+                                        else
+                                        {
+                                            <span>@item.RetailPrice</span>
+
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<!-- END: CONTENT/SHOPS/SHOP-2-1 -->

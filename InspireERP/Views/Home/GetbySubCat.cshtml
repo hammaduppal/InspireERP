@@ -1,0 +1,97 @@
+﻿@using ILibrary.Production
+@model List<Product>
+@{
+    if (!string.IsNullOrEmpty(Model.First().SubCategory.Name))
+    {
+        //ViewBag.Title = $"Search by       {Model.First().SubCategory.Name }";
+    }
+    else
+    {
+        ViewBag.Title = ViewBag;
+    }
+
+
+    Layout = "~/Views/_Shared/_SearchLayOut.cshtml";
+}
+
+<div class="col-md-10">
+    <div class="container">
+        <div class="c-content-title-1">
+            <h3 class="c-font-uppercase c-center c-font-bold">Most Popular</h3>
+            <div class="c-line-center c-theme-bg"></div>
+        </div>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-3 col-sm-6 c-margin-b-20">
+                    <div class="c-content-product-2 c-bg-white">
+                        <div class="c-content-overlay">
+                            @if (item.IsSale == true)
+                            {
+                                <div class="c-label c-bg-red c-font-uppercase c-font-white c-font-13 c-font-bold">Sale</div>
+                            }
+                            else if (item.IsDiscount == true)
+                            {
+                                <div class="c-label c-label-right c-theme-bg c-font-uppercase c-font-white c-font-13 c-font-bold">Discounted</div>
+
+                            }
+                            <div class="c-overlay-wrapper">
+                                <div class="c-overlay-content">
+                                    <a href="/Home/GetProduct/@item.Id" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">Explore</a>
+                                </div>
+                            </div>
+                            @if (item.Images.Count > 1)
+                            {
+                                <div class="c-bg-img-center c-overlay-object" data-height="height" style="height: 330px; background-image: url(@item.Images.First().URL);"></div>
+                            }
+                            else
+                            {
+                                <div class="c-bg-img-center c-overlay-object" data-height="height" style="height: 330px; background-image: url(/Content/assets/img/nophoto.png);"></div>
+
+                            }
+                        </div>
+                        <div class="c-info">
+                            <p class="c-title c-font-18 c-font-slim">@item.Name</p>
+                            @if (item.IsDiscount == false & item.IsSale == false)
+                            {
+                                <p class="c-price c-font-16 c-font-slim">
+                                    @item.RetailPrice &nbsp;
+                                </p>
+                            }
+                            else if (item.IsSale == true)
+                            {
+                                <p class="c-price c-font-16 c-font-slim">
+                                    @item.SalePrice &nbsp;
+                                    <span class="c-font-16 c-font-line-through c-font-red">@item.RetailPrice</span>
+                                </p>
+                            }
+                            else if (item.IsDiscount == true)
+                            {
+                                <p class="c-price c-font-16 c-font-slim">
+                                    @item.DiscountPrice &nbsp;
+                                    <span class="c-font-16 c-font-line-through c-font-red">@item.RetailPrice</span>
+                                </p>
+                            }
+
+                        </div>
+                        <div class="btn-group btn-group-justified" role="group">
+
+                            <div class="btn-group c-border-left c-border-top" role="group">
+                                <a  data-nuke="@item.Id" href="#" class="addtocart btn btn-lg c-btn-white c-btn-uppercase c-btn-square c-font-grey-3 c-font-white-hover c-bg-red-2-hover c-btn-product">Cart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,667 @@
+﻿@using ILibrary.SaleManager
+@model OrderMaster
+@{
+    ViewBag.Title = "ViewOrders";
+    Layout = "~/Views/_Shared/_AdminLayOut.cshtml";
+    List<OrderMaster> om = ViewBag.OrdersSupplier;
+
+}
+
+
+<div class="c-body">
+    <div class="c-content-tab-1">
+        <div class="row">
+            <div class="col-md-3 col-sm-3 col-xs-3">
+                <ul class="nav nav-tabs tabs-left c-font-uppercase c-font-bold">
+                    <li class="active">
+                        <a href="#tab_16_1" data-toggle="tab" aria-expanded="true">All Orders</a>
+                    </li>
+                    <li>
+                        <a href="#tab_16_2" data-toggle="tab">New Orders</a>
+                    </li>
+                    <li class="">
+                        <a href="#tab_16_3" data-toggle="tab"> Accepted Orders</a>
+                    </li>
+                    <li>
+                        <a href="#tab_16_4" data-toggle="tab"> In-Process Orders </a>
+                    </li>
+                    <li>
+                        <a href="#tab_16_5" data-toggle="tab"> Ready For Delivery </a>
+                    </li>
+                    <li>
+                        <a href="#tab_16_6" data-toggle="tab"> Order Delivered </a>
+                    </li>
+                    <li>
+                        <a href="#tab_16_7" data-toggle="tab"> Rejected Orders </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-9 col-sm-8 col-xs-8">
+                <div class="tab-content c-padding-sm">
+                    @*All Orders*@
+                    <div class="tab-pane active" id="tab_16_1">
+                        @if (om != null)
+                        {
+
+                            <div class="c-layout-sidebar-content ">
+
+                                <div class="c-content-title-1">
+                                    <h3 class="c-font-uppercase c-font-bold">All Orders</h3>
+                                </div>
+
+                                <table class="table table-bordered table-condensed table-hover">
+                                    <thead>
+                                        <tr>
+                                            <td>
+                                                Order Id
+                                            </td>
+                                            <td>Order Status</td>
+                                            <td>
+                                                Date / Time
+                                            </td>
+                                            <td>
+                                                Product
+                                            </td>
+                                            <td>
+                                                Qty
+                                            </td>
+                                            <td>
+                                                Selling Price
+                                            </td>
+                                            <td>
+                                                Delivery Charges
+                                            </td>
+                                            <td>
+                                                Total
+                                            </td>
+
+                                            <td>Order Note</td>
+                                            <td>
+                                                Change Status
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var item in om)
+                                        {
+                                        <tr>
+                                            <td>@item.Id</td>
+                                            <td>@item.Status</td>
+
+                                            <td>
+                                                @item.OrderDateTime
+                                            </td>
+                                            <td>
+                                                <a href="/Home/GetProduct/@item.Product.Id">@item.Product.Name</a>
+
+                                            </td>
+                                            <td>
+                                                @item.Qty
+                                            </td>
+                                            <td>
+                                                @item.Price
+                                            </td>
+                                            <td>
+                                                @item.DeliveryCharges
+                                            </td>
+                                            <td>
+                                                @item.Total
+                                            </td>
+
+                                            <td>@item.OrderNote</td>
+                                            <td>
+                                                @Html.EnumDropDownListFor(x => x.Status, new { @SValue = item.Id, @class = "changestatus form-control" })
+                                            </td>
+                                        </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                        else
+                        {
+                            <span>No Order</span>
+                        }
+
+
+
+                    </div>
+                    @*New Orders*@
+                    <div class="tab-pane fade" id="tab_16_2">
+                        @if (om != null)
+                        {
+
+                            <div class="c-layout-sidebar-content ">
+
+                                <div class="c-content-title-1">
+                                    <h3 class="c-font-uppercase c-font-bold">New Order</h3>
+                                </div>
+
+                                <table class="table table-bordered table-condensed table-hover">
+                                    <thead>
+                                        <tr>
+                                            <td>Order Id</td>
+                                            <td>
+                                                Date / Time
+                                            </td>
+                                            <td>
+                                                Product
+                                            </td>
+                                            <td>
+                                                Qty
+                                            </td>
+                                            <td>
+                                                Selling Price
+                                            </td>
+                                            <td>
+                                                Delivery Charges
+                                            </td>
+                                            <td>
+                                                Total
+                                            </td>
+
+                                            <td>Order Note</td>
+                                            <td>
+                                                Change Status
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var item in om)
+                                        {
+                                            if (item.Status == OrderMaster.OrderStatus.OrderRecieved)
+                                            {
+                                                <tr>
+                                                    <td>@item.Id</td>
+                                                    <td>
+                                                        @item.OrderDateTime
+                                                    </td>
+                                                    <td>
+                                                        <a href="/Home/GetProduct/@item.Product.Id">@item.Product.Name</a>
+
+                                                    </td>
+                                                    <td>
+                                                        @item.Qty
+                                                    </td>
+                                                    <td>
+                                                        @item.Price
+                                                    </td>
+                                                    <td>
+                                                        @item.DeliveryCharges
+                                                    </td>
+                                                    <td>
+                                                        @item.Total
+                                                    </td>
+
+                                                    <td>@item.OrderNote</td>
+                                                    <td>
+                                                        @Html.EnumDropDownListFor(x => x.Status, new { @SValue = item.Id, @class = "changestatus form-control", value = item.Status })
+                                                    </td>
+                                                </tr>
+                                            }
+
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                        else
+                        {
+                            <span>No Order</span>
+                        }
+                    </div>
+                    @*Accepted Orders*@
+                    <div class="tab-pane fade" id="tab_16_3">
+                        @if (om != null)
+                        {
+
+                            <div class="c-layout-sidebar-content ">
+
+                                <div class="c-content-title-1">
+                                    <h3 class="c-font-uppercase c-font-bold">Accepted Orders</h3>
+                                </div>
+
+                                <table class="table table-bordered table-condensed table-hover">
+                                    <thead>
+                                        <tr>
+                                            <td>
+                                                Date / Time
+                                            </td>
+                                            <td>
+                                                Product
+                                            </td>
+                                            <td>
+                                                Qty
+                                            </td>
+                                            <td>
+                                                Selling Price
+                                            </td>
+                                            <td>
+                                                Delivery Charges
+                                            </td>
+                                            <td>
+                                                Total
+                                            </td>
+
+                                            <td>Order Note</td>
+                                            <td>
+                                                Change Status
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var item in om)
+                                        {
+                                            if (item.Status == OrderMaster.OrderStatus.OrderAccepted)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @item.OrderDateTime
+                                                    </td>
+                                                    <td>
+                                                        <a href="/Home/GetProduct/@item.Product.Id">@item.Product.Name</a>
+
+                                                    </td>
+                                                    <td>
+                                                        @item.Qty
+                                                    </td>
+                                                    <td>
+                                                        @item.Price
+                                                    </td>
+                                                    <td>
+                                                        @item.DeliveryCharges
+                                                    </td>
+                                                    <td>
+                                                        @item.Total
+                                                    </td>
+
+                                                    <td>@item.OrderNote</td>
+                                                    <td>
+                                                        @Html.EnumDropDownListFor(x => x.Status, new { @SValue = item.Id, @class = "changestatus form-control" })
+                                                    </td>
+                                                </tr>
+                                            }
+
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                        else
+                        {
+                            <span>No Order</span>
+                        }
+                    </div>
+                    @*In-Process Orders*@
+                    <div class="tab-pane fade" id="tab_16_4">
+                        @if (om != null)
+                        {
+
+                            <div class="c-layout-sidebar-content ">
+
+                                <div class="c-content-title-1">
+                                    <h3 class="c-font-uppercase c-font-bold">In-Process Orders</h3>
+                                </div>
+
+                                <table class="table table-bordered table-condensed table-hover">
+                                    <thead>
+                                        <tr>
+                                            <td>
+                                                Date / Time
+                                            </td>
+                                            <td>
+                                                Product
+                                            </td>
+                                            <td>
+                                                Qty
+                                            </td>
+                                            <td>
+                                                Selling Price
+                                            </td>
+                                            <td>
+                                                Delivery Charges
+                                            </td>
+                                            <td>
+                                                Total
+                                            </td>
+
+                                            <td>Order Note</td>
+                                            <td>
+                                                Change Status
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var item in om)
+                                        {
+                                            if (item.Status == OrderMaster.OrderStatus.OrderInProcess)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @item.OrderDateTime
+                                                    </td>
+                                                    <td>
+                                                        <a href="/Home/GetProduct/@item.Product.Id">@item.Product.Name</a>
+
+                                                    </td>
+                                                    <td>
+                                                        @item.Qty
+                                                    </td>
+                                                    <td>
+                                                        @item.Price
+                                                    </td>
+                                                    <td>
+                                                        @item.DeliveryCharges
+                                                    </td>
+                                                    <td>
+                                                        @item.Total
+                                                    </td>
+
+                                                    <td>@item.OrderNote</td>
+                                                    <td>
+                                                        @Html.EnumDropDownListFor(x => x.Status, new { @SValue = item.Id, @class = "changestatus form-control" })
+                                                    </td>
+                                                </tr>
+                                            }
+
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                        else
+                        {
+                            <span>No Order</span>
+                        }
+
+                    </div>
+                    @*Ready For Delivery*@
+                    <div class="tab-pane fade" id="tab_16_5">
+                        <p>
+                            @if (om != null)
+                            {
+                                <div class="c-layout-sidebar-content ">
+                                    <div class="c-content-title-1">
+                                        <h3 class="c-font-uppercase c-font-bold">Read for Delivery</h3>
+                                    </div>
+
+                                    <table class="table table-bordered table-condensed table-hover">
+                                        <thead>
+                                            <tr>
+                                                <td>
+                                                    Date / Time
+                                                </td>
+                                                <td>
+                                                    Product
+                                                </td>
+                                                <td>
+                                                    Qty
+                                                </td>
+                                                <td>
+                                                    Selling Price
+                                                </td>
+                                                <td>
+                                                    Delivery Charges
+                                                </td>
+                                                <td>
+                                                    Total
+                                                </td>
+
+                                                <td>Order Note</td>
+                                                <td>
+                                                    Change Status
+                                                </td>
+                                                <td>Delivery Details</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @foreach (var item in om)
+                                            {
+                                                if (item.Status == OrderMaster.OrderStatus.ReadyForDelivery)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @item.OrderDateTime
+                                                        </td>
+                                                        <td>
+                                                            <a href="/Home/GetProduct/@item.Product.Id">@item.Product.Name</a>
+
+                                                        </td>
+                                                        <td>
+                                                            @item.Qty
+                                                        </td>
+                                                        <td>
+                                                            @item.Price
+                                                        </td>
+                                                        <td>
+                                                            @item.DeliveryCharges
+                                                        </td>
+                                                        <td>
+                                                            @item.Total
+                                                        </td>
+
+                                                        <td>@item.OrderNote</td>
+                                                        <td>
+                                                            @Html.EnumDropDownListFor(x => x.Status, new { @SValue = item.Id, @class = "changestatus form-control" })
+                                                        </td>
+                                                        <td><a class="printDo" data-value="@item.Id" href="#">Print DO</a></td>
+                                                    </tr>
+                                                }
+
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                            else
+                            {
+                                <span>No Order</span>
+                            }
+
+                        </p>
+                    </div>
+                    @*Orders Delivered*@
+                    <div class="tab-pane fade" id="tab_16_6">
+                        @if (om != null)
+                        {
+
+                            <div class="c-layout-sidebar-content ">
+
+                                <div class="c-content-title-1">
+                                    <h3 class="c-font-uppercase c-font-bold">Order Delivered</h3>
+                                </div>
+
+                                <table class="table table-bordered table-condensed table-hover">
+                                    <thead>
+                                        <tr>
+                                            <td>
+                                                Date / Time
+                                            </td>
+                                            <td>
+                                                Product
+                                            </td>
+                                            <td>
+                                                Qty
+                                            </td>
+                                            <td>
+                                                Selling Price
+                                            </td>
+                                            <td>
+                                                Delivery Charges
+                                            </td>
+                                            <td>
+                                                Total
+                                            </td>
+
+                                            <td>Order Note</td>
+                                            <td>
+                                                Change Status
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var item in om)
+                                        {
+                                            if (item.Status == OrderMaster.OrderStatus.OrderDelivered)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @item.OrderDateTime
+                                                    </td>
+                                                    <td>
+                                                        <a href="/Home/GetProduct/@item.Product.Id">@item.Product.Name</a>
+
+                                                    </td>
+                                                    <td>
+                                                        @item.Qty
+                                                    </td>
+                                                    <td>
+                                                        @item.Price
+                                                    </td>
+                                                    <td>
+                                                        @item.DeliveryCharges
+                                                    </td>
+                                                    <td>
+                                                        @item.Total
+                                                    </td>
+
+                                                    <td>@item.OrderNote</td>
+                                                    <td>
+                                                        @Html.EnumDropDownListFor(x => x.Status, new { @SValue = item.Id, @class = "changestatus form-control", value = item.Status })
+                                                    </td>
+                                                </tr>
+                                            }
+
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                        else
+                        {
+                            <span>No Order</span>
+                        }
+                    </div>
+                    @*Rejected Orders*@
+                    <div class="tab-pane fade" id="tab_16_7">
+                        @if (om != null)
+                        {
+
+                            <div class="c-layout-sidebar-content ">
+
+                                <div class="c-content-title-1">
+                                    <h3 class="c-font-uppercase c-font-bold">Rejected Orders</h3>
+                                </div>
+
+                                <table class="table table-bordered table-condensed table-hover">
+                                    <thead>
+                                        <tr>
+                                            <td>
+                                                Date / Time
+                                            </td>
+                                            <td>
+                                                Product
+                                            </td>
+                                            <td>
+                                                Qty
+                                            </td>
+                                            <td>
+                                                Selling Price
+                                            </td>
+                                            <td>
+                                                Delivery Charges
+                                            </td>
+                                            <td>
+                                                Total
+                                            </td>
+
+                                            <td>Order Note</td>
+                                            <td>
+                                                Change Status
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var item in om)
+                                        {
+                                            if (item.Status == OrderMaster.OrderStatus.OrderRejected)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @item.OrderDateTime
+                                                    </td>
+                                                    <td>
+                                                        <a href="/Home/GetProduct/@item.Product.Id">@item.Product.Name</a>
+
+                                                    </td>
+                                                    <td>
+                                                        @item.Qty
+                                                    </td>
+                                                    <td>
+                                                        @item.Price
+                                                    </td>
+                                                    <td>
+                                                        @item.DeliveryCharges
+                                                    </td>
+                                                    <td>
+                                                        @item.Total
+                                                    </td>
+
+                                                    <td>@item.OrderNote</td>
+                                                    <td>
+                                                        @Html.EnumDropDownListFor(x => x.Status, new { @SValue = item.Id, @class = "changestatus form-control", value = item.Status })
+                                                    </td>
+                                                </tr>
+                                            }
+
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                        else
+                        {
+                            <span>No Order</span>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section myScript{
+    <script type="text/javascript">
+        $('.changestatus').change(function (e) {
+            let value = $(this).val();
+            let Id = $(this).attr("SValue");
+            var data = value + "|" + Id;
+            $.ajax({ url: "/Cart/ChangeOrderStatus/?data=" + data, method: "GET" }).done(function () {
+            });
+
+            location.reload();
+        });
+        $('.printDo').click(function () {
+
+            var Id = $(this).data('value');
+            $.ajax({ url: "/Cart/GetCustomerInfo/"+Id, method: "GET" }).done(function (result) {
+                $('.modal-content').html(result);
+                $('.bd-example-modal-lg').modal();
+            });
+        });
+    </script>
+}

@@ -1,0 +1,8 @@
+﻿@using ILibrary.Production
+@model Product
+@{
+    List<SelectListItem> subcategory = ViewBag.subCategorybyID;
+
+}
+@Html.DropDownListFor(x => x.SubCategory.Name, subcategory, "-- Select SubCategory --", new { @class = "form-control", Id = "subcategory" })
+

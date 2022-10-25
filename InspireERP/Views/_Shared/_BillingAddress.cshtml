@@ -1,0 +1,71 @@
+﻿@using ILibrary.HRM;
+
+@{
+    StretAddress s = ViewBag.Address;
+    List<SelectListItem> c = ViewBag.City;
+    List<SelectListItem> country = ViewBag.Country;
+}
+
+
+<div class="c-layout-sidebar-content ">
+    <!-- BEGIN: PAGE CONTENT -->
+    <div class="c-content-title-1">
+        <h3 class="c-font-uppercase c-font-bold">Update Billing Address</h3>
+        <div class="c-line-left"></div>
+    </div>
+    <form action="/Person/UpdateBillingAddress/" class="c-shop-form-1">
+        <!-- BEGIN: ADDRESS FORM -->
+        <div class="">
+            <input name="id" id="id" type="text" hidden value="@s.Id" />
+            <!-- BEGIN: BILLING ADDRESS -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Street Address</label>
+                            <input name="stAddress" , id="stAddress" type="text" value="@s.StAddress" class="form-control c-square c-theme" placeholder="First Name">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="control-label">City Name</label>
+                            <span>Your Current City is @s.City.Name</span>
+                            <select class="form-control" name="cityName" , id="cityName">
+                                <option value="@s.City.Id">@s.City.Name</option>
+                                @foreach (var item in c)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label class="control-label">Country Name</label>
+                    <span>Your Current Country is @s.City.Country.Name</span>
+
+                    <select class="form-control" name="countryName" , id="countryName">
+                        <option value="@s.City.Country.Id">@s.City.Country.Name</option>
+                        @foreach (var item in country)
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+                    </select>
+                </div>
+
+            </div>
+
+            <!-- END: BILLING ADDRESS -->
+            <!-- BEGIN: PASSWORD -->
+            <!-- END: PASSWORD -->
+            <div class="row c-margin-t-30">
+                <div class="form-group col-md-12" role="group">
+                    <button id="profileSubmit" type="submit" class="btn btn-lg c-theme-btn c-btn-square c-btn-uppercase c-btn-bold">Submit</button>
+                </div>
+            </div>
+        </div>
+        <!-- END: ADDRESS FORM -->
+    </form>
+    <!-- END: PAGE CONTENT -->
+</div>
+

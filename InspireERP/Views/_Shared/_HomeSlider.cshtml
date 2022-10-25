@@ -1,0 +1,41 @@
+﻿@using ILibrary.AdminSide;
+@{
+    List<BannerSlider> bannerSliders = new AdminHelper().BannerSlides();
+}  <!-- BEGIN: REVOLUTION SLIDER 2 -->
+<section class="c-layout-revo-slider c-layout-revo-slider-14">
+    <div class="tp-banner-container tp-fullscreen">
+        <div class="tp-banner rev_slider" data-version="5.0">
+            <ul>
+                <!--BEGIN: SLIDE #1 -->
+                @foreach (var item in bannerSliders)
+                {
+                    <li data-transition="fade" data-slotamount="1" data-masterspeed="1000">
+                        <img alt="" src="@item.ImageURL" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
+                        <!--BEGIN: MAIN TITLE -->
+                        <div class="tp-caption customin customout tp-resizeme" data-x="center" data-y="center" data-hoffset="385" data-voffset="-50" data-speed="500" data-start="1000" data-transform_in="x:0;y:0;z:0;rotationX:0.5;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;s:500;e:Back.easeInOut;"
+                             data-transform_out="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;s:600;e:Back.easeInOut;" data-splitin="none" data-splitout="none" data-elementdelay="0.1" data-endelementdelay="0.1"
+                             data-endspeed="600">
+                            <div class="c-slider-14-title c-center">
+                                <p class="c-font-dark c-font-uppercase c-font-33 c-font-bold">@item.Text</p>
+                                <h3 class="c-main-title c-font-bold c-font-uppercase c-font-white">
+                                    <span class="c-theme-font">Shop Now</span>
+                                </h3>
+                            </div>
+                        </div>
+                        <!--END -->
+                        <!--BEGIN: ACTION BUTTON -->
+                        <div class="tp-caption randomrotateout tp-resizeme" data-x="center" data-y="center" data-hoffset="390" data-voffset="100" data-speed="500" data-start="2000" data-transform_in="x:0;y:0;z:0;rotationX:0.5;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;s:500;e:Back.easeInOut;"
+                             data-transform_out="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;s:500;e:Back.easeInOut;">
+                            <a href="@item.URL" class="c-action-btn btn btn-md c-btn-square c-btn-bold c-btn-dark-1 c-btn-uppercase c-center">Shop Now</a>
+                        </div>
+                        <!--END -->
+                    </li>
+                }
+
+                <!--END -->
+               
+            </ul>
+        </div>
+    </div>
+</section>
+<!-- END: LAYOUT/SLIDERS/SHOP-REVO-SLIDER-4 -->

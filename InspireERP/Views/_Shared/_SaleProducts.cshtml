@@ -1,0 +1,83 @@
+﻿@using ILibrary.Production
+@using ILibrary
+@{
+    List<Product> IsSaleProduct = new ProductHandler().GetSaleProduct();
+
+}
+<div class="row">
+    <div class="c-content-title-1">
+        <h3 class="c-font-uppercase c-center c-font-bold">Sales Product</h3>
+        <div class="c-line-center c-theme-bg"></div>
+    </div>
+    <div class="row">
+        @foreach (var item in IsSaleProduct)
+        {
+            <div class="col-md-3 col-sm-6 c-margin-b-20">
+                <div class="c-content-product-2 c-bg-white">
+                    <div class="c-content-overlay">
+                        <div class="c-label c-theme-bg c-font-uppercase c-font-white c-font-13 c-font-bold">@item.ViewCounts</div>
+                        <div class="c-label c-theme-bg c-label-right c-font-uppercase c-font-white c-font-13 c-font-bold">Sale</div>
+
+                        <div class="c-overlay-wrapper">
+                            <div class="c-overlay-content">
+                                <a href="/Home/GetProduct/@item.Id" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">Explore</a>
+                            </div>
+                        </div>
+                        <div class="c-bg-img-center c-overlay-object" data-height="height" style="height: 330px; background-image: url(@item.Images.First().URL);"></div>
+                    </div>
+                    <div class="c-info">
+                        <p class="c-title c-font-18 c-font-slim">@item.Name</p>
+                        <p class="c-price c-font-16 c-font-slim">
+                            @if (item.IsDiscount == true && item.IsSale == true)
+                            {
+
+                                <span>@item.RetailPrice</span>
+                            }
+                            else if (item.IsDiscount == true)
+                            {
+                                <span>@item.DiscountPrice</span>
+                                <span class="c-font-16 c-font-line-through c-font-red">@item.RetailPrice</span>
+                            }
+                            else if (item.IsSale == true)
+                            {
+                                <span>@item.SalePrice</span>
+                                <span class="c-font-16 c-font-line-through c-font-red">@item.RetailPrice</span>
+                            }
+                            else
+                            {
+                                <span>@item.RetailPrice</span>
+
+                            }
+                        </p>
+                    </div>
+                  
+                </div>
+            </div>
+
+            
+
+        }
+
+
+        <div class="col-md-3 col-sm-6 c-margin-b-20">
+            <div class="c-content-product-2 c-bg-white">
+                <div class="c-content-overlay">
+                    <div class="c-overlay-wrapper">
+                        <div class="c-overlay-content">
+                            <a href="~/Home/SearchbySale" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">View All</a>
+                        </div>
+                    </div>
+                    <div class="c-bg-img-center c-overlay-object" data-height="height" style="height: 240px; background-image: url(/Content/assets/img/salelow.jpg);"></div>
+                </div>
+                <div class="c-info">
+                    <p class="c-title c-font-18 c-font-slim">View All Sale</p>
+
+                </div>
+                <div class="btn-group btn-group-justified" role="group">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

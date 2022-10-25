@@ -1,0 +1,154 @@
+﻿@using ILibrary
+@using ILibrary.Production
+@{
+    ViewBag.Title = "View All Product";
+    Layout = "~/Views/_Shared/_AdminLayOut.cshtml";
+    List<Product> AllProducts = ViewBag.ListofProduct;
+}
+<div class="row">
+    <a class="btn btn-foursquare" href="/Product/AddProduct">Add New</a>
+
+</div>
+<div class="row">
+    <table id="myTable" class="table table-bordered table-condensed table-hover table-responsive table-striped">
+        <thead class="">
+            <tr>
+                <td>
+                    SR#
+                </td>
+                <td>
+                    
+                    Name
+                </td>
+                <td>
+                    Description
+                </td>
+                <td>
+                    Color
+                </td>
+                <td>
+                    SubCategory
+                </td>
+                <td>
+                    Category
+                </td>
+                <td>
+                    Cost
+                </td>
+                <td>
+                    Discount Price
+                </td>
+                <td>
+                    Price
+                </td>
+                <td>
+                    Manage
+                </td>
+            </tr>
+
+
+        </thead>
+        <tbody class="">
+            @foreach (var item in AllProducts)
+            {
+                <tr class="">
+                    <td>
+                        @item.Id
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Description
+                    </td>
+                    <td>
+                        @item.Color.Name
+                    </td>
+                    <td>
+                        @item.SubCategory.Name
+                    </td>
+                    <td>
+                        @item.SubCategory.Category.Name
+                    </td>
+                    <td>
+                        @item.SalePrice
+                    </td>
+                    <td>
+                        @item.DiscountPrice
+                    </td>
+                    <td>
+                        @item.RetailPrice
+                    </td>
+                    <td>
+                        <div style="border:1px dotted grey; float:left;">
+                            <a href="~/Product/GetProduct/@item.Id" data-nuke="viewProduct" data-value="@item.Id" class="icon-eye viewProduct"></a>
+
+                        </div>
+                        <div style="border:1px dotted grey; float:left;">
+                            <a href="~/Product/EditProduct/@item.Id" data-nuke="editProduct" class="icon-pencil editProduct"></a>
+
+                        </div>
+                        <div style="border:1px dotted grey; float:left;">
+                            <a href="~/Product/RemoveProduct/@item.Id" data-nuke="removeProduct" data-value="@item.Id" class="icon-magnifier-remove removeProduct"></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+@section myScript{
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+    function RemoveProduct(link) {
+        $.ajax({
+            url: link,
+            method: "GET"
+
+        }).done(function () {
+            location.reload();
+        });
+    }
+    function ViewProduct(link) {
+        $.ajax({
+            url: link,
+            method: "GET"
+
+        }).done(function (result) {
+            $('.modal-content').html(result);
+            $('.bd-example-modal-lg').modal();
+        });
+    }
+    function EditProduct(link) {
+        $.ajax({
+            url: link,
+            method: "GET"
+
+        }).done(function (result) {
+            $('.modal-content').html(result);
+            $('.bd-example-modal-lg').modal();
+        });
+    }
+    $('.viewProduct,.editProduct,.removeProduct').click(function (e) {
+        e.preventDefault();
+        let name = $(this).data('nuke');
+        //let Id = $(this).data('value');
+        let link = $(this).attr('href');
+        if (name == 'viewProduct') {
+            ViewProduct(link);
+        }
+        else if (name == 'editProduct')
+        {
+            EditProduct(link);
+        }
+        else if (name == 'removeProduct') {
+            RemoveProduct(link);
+        }
+    });
+
+    </script>    
+}

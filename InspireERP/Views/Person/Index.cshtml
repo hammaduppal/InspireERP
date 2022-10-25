@@ -1,0 +1,157 @@
+﻿@using ILibrary.HRM
+@model LoginUsers
+<!DOCTYPE html>
+<html lang="en">
+@RenderPage("~/Views/_Shared/_Header.cshtml")
+
+
+<body>
+    <!-- BEGIN: CONTENT/USER/LOGIN-FORM -->
+    <div class="modal fade c-content-login-form" id="login-form" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content c-square">
+                <div class="modal-body">
+                    <h3 class="c-font-24 c-font-sbold">Good Day!</h3>
+                    <p>Let's make today a great day!</p>
+                  
+                    <form action="/Person/GetLogin/">
+                        <div class="form-group">
+                            <input name="email" type="email" class="form-control input-lg c-square" id="email" placeholder="Enter Email Address">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password" class="form-control input-lg c-square" id="password" placeholder="Password">
+                        </div>
+                        
+                        <div class="form-group">
+                            <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login">Login</button>
+                            <a href="/Person/SupplierSignUp/"  class="c-btn-forgot">Become Supplier</a>
+                        </div>
+                        
+                    </form>
+                </div>
+                <div class="modal-footer c-no-border">
+                    <span class="c-text-account">Don't Have An Account Yet ?</span>
+                    <a id="" href="/Cart/UserLogin/" class="btn c-btn-dark-1 btn c-btn-uppercase c-btn-bold c-btn-slim c-btn-border-2x c-btn-square c-btn-signup">Signup!</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END: CONTENT/USER/LOGIN-FORM -->
+
+
+</body>
+</html>
+@RenderPage("~/Views/_Shared/_Footer.cshtml")
+
+<script type="text/javascript">
+    $('#login-form').modal({
+        backdrop: 'static',
+        keyboard: false
+    });
+    //$('#btnSubmit').click(function (e) {
+    //    e.preventDefault();
+    //    var eId = $('#recoveryEmail').val();
+    //    $.ajax({
+    //        url: "/Person/CheckEmail/?Email=" +
+    //            eId, method: "GET"
+    //    }).done(function (result) {
+    //        if (result == "true") {
+    //            alert('Recovery information sent to your Email Successfully');
+    //            location.reload();
+    //        }
+    //        else {
+    //            alert('Email not Found in Record Please Check E-Mail or Signup for new Account.');
+
+    //        }
+    //    });
+
+
+    //});
+    //$('#setUserID').keyup(function (e) {
+    //    var name = $(this).val();
+    //    $.ajax({
+    //        url: "/Person/CheckLoginID/?name=" + name, method: "GET"
+    //    }).done(function (result) {
+    //        console.log(result);
+    //        if (result == "true") {
+    //            $('#UserNameAlert').text("Username is NOT Available");
+    //            $('#registersubmit').attr("disabled", "disabled");
+    //        }
+    //        else if (result == "false") {
+    //            $('#UserNameAlert').text("Category is Available");
+    //            $('#registersubmit').removeAttr("disabled");
+
+    //        }
+    //    });
+    //    console.log(name);
+
+    //});
+    //$(document).ready(function () {
+
+    //    $('#modal-validation').modal({
+    //        backdrop: 'static',
+    //        keyboard: false
+    //    });
+
+    //});
+    //$('#SignUp').click(function () {
+    //    $('#modal-validation').fadeOut();
+    //    $('#modal-registration').modal({
+    //        backdrop: 'static',
+    //        keyboard: false
+    //    });
+
+    //});
+    //$('#BacktoLogin').click(function () {
+    //    $('#modal-registration').fadeIn();
+    //    $('#modal-validation').modal({
+    //        backdrop: 'static',
+    //        keyboard: false
+    //    });
+
+
+    //});
+
+    //$('#signup').click(function () {
+    //    $('#login-form').fadeOut(2000);
+    //    $('#signup-form').modal({
+    //        backdrop: 'static',
+    //        keyboard: false
+    //    });
+    //    $('#modal-registration').fadeIn({
+    //        backdrop: 'static',
+    //        keyboard: false
+    //    });
+    //});
+
+
+    //$('#forgetPassword').click(function (e) {
+    //    e.preventDefault();
+    //    $('#modal-validation').fadeOut(2000);
+    //    $('#modal-recover').modal({
+    //        backdrop: 'static',
+    //        keyboard: false
+    //    });
+    //    $('#modal-recover').fadeIn({
+    //        backdrop: 'static',
+    //        keyboard: false
+    //    });
+
+    //});
+    //$('#againlogin').click(function (e) {
+    //    e.preventDefault();
+    //    $('#modal-registration').fadeOut(2000);
+    //    $('#modal-validation').fadeIn({
+    //        backdrop: 'static',
+    //        keyboard: false
+    //    });
+    //});
+    //$('#back').click(function (e) {
+    //    e.preventDefault();
+    //    $('#modal-recover').fadeOut(2000);
+    //    $('#modal-validation').fadeIn({
+    //        backdrop: 'static',
+    //        keyboard: false
+    //    });
+    //});
+</script>
